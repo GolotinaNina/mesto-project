@@ -1,0 +1,13 @@
+.edit-form__submit {
+    margin-top: 48px;
+    padding: 14px 0 18px 0;
+    border-radius: 2px;
+    background-color: black;
+    color: white;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+}

@@ -1,0 +1,11 @@
+.popup__container {
+    position: absolute;
+    align-self: center;
+    padding: 40px;
+}
+
+@media screen and (max-width:600px){
+    .popup__container{
+        padding: 40px 0 0 0;
+    }
+}

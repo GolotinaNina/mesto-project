@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Места России</title>
+    <link rel="stylesheet" href="pages/index.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+
+<body class="page">
+    <header class="header">
+        <img src="images/header-logo.svg" alt="логотип" class="header__logo">
+    </header>
+    <section class="profile">
+        <a href="#" class="profile__avatar"></a>
+        <div class="profile__info">
+            <p class="profile__name">Жак-Ив Кусто</p>
+            <button class="profile__edit" id="profile__edit"></button>
+            <p class="profile__about">Исследователь океана</p>
+        </div>
+        <button class="profile__add"></button>
+    </section>
+    <section class="elements">
+        <article class="element">
+            <img src="./images/place-karachaevs.jpg" alt="Карачаевск" class="element__photo">
+            <div class="element__group">
+                <p class="element__place-name">Карачаевск</p>
+                <button class="element__like-button"></button>
+            </div>
+        </article>
+        <article class="element">
+            <img src="./images/place-elbrus.jpg" alt="Гора Эльбрус" class="element__photo">
+            <div class="element__group">
+                <p class="element__place-name">Гора Эльбрус</p>
+                <button class="element__like-button element__like-button_status_selected"></button>
+            </div>
+        </article>
+        <article class="element">
+            <img src="./images/place-dombai.jpg" alt="Домбай" class="element__photo">
+            <div class="element__group">
+                <p class="element__place-name">Домбай</p>
+                <button class="element__like-button"></button>
+            </div>
+        </article>
+        <article class="element">
+            <img src="./images/place-elbrus.jpg" alt="Гора Эльбрус" class="element__photo">
+            <div class="element__group">
+                <p class="element__place-name">Гора Эльбрус</p>
+                <button class="element__like-button"></button>
+            </div>
+        </article>
+        <article class="element">
+            <img src="./images/place-dombai.jpg" alt="Домбай" class="element__photo">
+            <div class="element__group">
+                <p class="element__place-name">Домбай</p>
+                <button class="element__like-button"></button>
+            </div>
+        </article>
+        <article class="element">
+            <img src="./images/place-karachaevs.jpg" alt="Карачаево-Черкесия" class="element__photo">
+            <div class="element__group">
+                <p class="element__place-name">Карачаево-Черкесия</p>
+                <button class="element__like-button"></button>
+            </div>
+        </article>
+    </section>
+    <footer class="footer">
+        <p class="footer__text">© 2020 Mesto Russia</p>
+    </footer>
+    <div class="popup popup_opened">
+        <div class="popup__container popup_opened">
+            <button class="popup__close" id="popup__close"></button>
+            <form class="edit-form">
+                <p class="edit-form__title">Редактировать профиль</p>
+                <input type="text" class="edit-form__input edit-form__name" value="Жак-Ив Кусто">
+                <input type="text" class="edit-form__input edit-form__about" value="Исследователь океана">
+                <button type="submit" class="edit-form__submit">Сохранить</button>
+            </form>
+        </div>
+    </div>
+</body>
+<script lang="js">
+    $('#popup__close').click(function(){
+        $('.popup').removeClass('popup_opened')
+    })
+    
+    $('#profile__edit').click(function(){
+        $('.popup').addClass('popup_opened')
+    })
+    
+    $('.edit-form').submit(function(event){
+        let name = $('input.edit-form__name').val()
+        let about = $('input.edit-form__about').val()
+
+        $('.profile__name').text(name)
+        $('.profile__about').text(about)
+
+        event.preventDefault()
+        $('.popup').removeClass('popup_opened')
+    })
+</script>
+
+</html>
