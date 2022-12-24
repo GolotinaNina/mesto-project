@@ -1,17 +1,18 @@
 .popup__close {
-    background: center/contain url(../../../images/close.svg) no-repeat;
     position: absolute;
+    background: center/contain url(../../../images/close.svg) no-repeat;
     cursor: pointer;
     border: none;
     top: 0;
     right: 0;
     width: 32px;
     height: 32px;
+    padding: 0;
 }
 
 .popup__close:hover {
     transition: .3s;
-    opacity: .5;
+    opacity: .6;
 }
 
 @media screen and (max-width:425px) {

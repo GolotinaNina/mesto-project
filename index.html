@@ -7,100 +7,81 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Места России</title>
     <link rel="stylesheet" href="pages/index.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
 <body class="page">
     <header class="header">
         <img src="images/header-logo.svg" alt="логотип" class="header__logo">
     </header>
+    <main class="content">
     <section class="profile">
-        <a href="#" class="profile__avatar"></a>
+        <img src="../mesto-project/images/avatar.jpg" class="profile__avatar">
         <div class="profile__info">
             <p class="profile__name">Жак-Ив Кусто</p>
-            <button class="profile__edit" id="profile__edit"></button>
+            <button type="button" class="profile__edit" id="profile__edit"></button>
             <p class="profile__about">Исследователь океана</p>
         </div>
-        <button class="profile__add"></button>
+        <button type="menu" class="profile__add"></button>
     </section>
     <section class="elements">
         <article class="element">
             <img src="./images/place-karachaevs.jpg" alt="Карачаевск" class="element__photo">
             <div class="element__group">
-                <p class="element__place-name">Карачаевск</p>
-                <button class="element__like-button"></button>
+                <h3 class="element__place-name">Карачаевск</h3>
+                <button type="button" class="element__like-button"></button>
             </div>
         </article>
         <article class="element">
             <img src="./images/place-elbrus.jpg" alt="Гора Эльбрус" class="element__photo">
             <div class="element__group">
-                <p class="element__place-name">Гора Эльбрус</p>
-                <button class="element__like-button element__like-button_status_selected"></button>
+                <h3 class="element__place-name">Гора Эльбрус</h3>
+                <button type="button" class="element__like-button element__like-button_status_selected"></button>
             </div>
         </article>
         <article class="element">
             <img src="./images/place-dombai.jpg" alt="Домбай" class="element__photo">
             <div class="element__group">
-                <p class="element__place-name">Домбай</p>
-                <button class="element__like-button"></button>
+                <h3 class="element__place-name">Домбай</h3>
+                <button type="button" class="element__like-button"></button>
             </div>
         </article>
         <article class="element">
             <img src="./images/place-elbrus.jpg" alt="Гора Эльбрус" class="element__photo">
             <div class="element__group">
-                <p class="element__place-name">Гора Эльбрус</p>
-                <button class="element__like-button"></button>
+                <h3 class="element__place-name">Гора Эльбрус</h3>
+                <button type="button" class="element__like-button"></button>
             </div>
         </article>
         <article class="element">
             <img src="./images/place-dombai.jpg" alt="Домбай" class="element__photo">
             <div class="element__group">
-                <p class="element__place-name">Домбай</p>
-                <button class="element__like-button"></button>
+                <h3 class="element__place-name">Домбай</h3>
+                <button type="button" class="element__like-button"></button>
             </div>
         </article>
         <article class="element">
             <img src="./images/place-karachaevs.jpg" alt="Карачаево-Черкесия" class="element__photo">
             <div class="element__group">
-                <p class="element__place-name">Карачаево-Черкесия</p>
-                <button class="element__like-button"></button>
+                <h3 class="element__place-name">Карачаево-Черкесия</h3>
+                <button type="button" class="element__like-button"></button>
             </div>
         </article>
     </section>
+</main>
     <footer class="footer">
         <p class="footer__text">© 2020 Mesto Russia</p>
     </footer>
+
     <div class="popup popup_opened">
-        <div class="popup__container popup_opened">
-            <button class="popup__close" id="popup__close"></button>
-            <form class="edit-form">
-                <p class="edit-form__title">Редактировать профиль</p>
-                <input type="text" class="edit-form__input edit-form__name" value="Жак-Ив Кусто">
-                <input type="text" class="edit-form__input edit-form__about" value="Исследователь океана">
+        <div class="popup__container">
+            <button type="menu" class="popup__close" id="popup__close"></button>
+            <form type="name" class="edit-form">
+                <h2 class="edit-form__title">Редактировать профиль</h2>
+                <input type="name" class="edit-form__input" value="Жак-Ив Кусто">
+                <input type="name" class="edit-form__input" value="Исследователь океана">
                 <button type="submit" class="edit-form__submit">Сохранить</button>
             </form>
         </div>
     </div>
 </body>
-<script lang="js">
-    $('#popup__close').click(function(){
-        $('.popup').removeClass('popup_opened')
-    })
-    
-    $('#profile__edit').click(function(){
-        $('.popup').addClass('popup_opened')
-    })
-    
-    $('.edit-form').submit(function(event){
-        let name = $('input.edit-form__name').val()
-        let about = $('input.edit-form__about').val()
-
-        $('.profile__name').text(name)
-        $('.profile__about').text(about)
-
-        event.preventDefault()
-        $('.popup').removeClass('popup_opened')
-    })
-</script>
-
 </html>

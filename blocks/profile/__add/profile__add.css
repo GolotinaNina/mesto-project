@@ -7,10 +7,13 @@
     cursor: pointer;
     height: 50px;
     width: 150px;
+    padding: 0;
+    border: 2px solid rgba(255, 255, 255, 1);
+    border-radius: 2px;
 }
 
 .profile__add:hover {
-    opacity: 0.6;
+    opacity: 0.5;
     transition: .5s;
 }
 

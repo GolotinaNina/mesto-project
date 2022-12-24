@@ -1,18 +1,12 @@
 .page {
     background-color: #000000;
-    margin: 45px auto 60px auto;
-    min-height: 100vh;
-    max-width: 880px;
-    overflow-x: hidden;
+    font-family: 'Inter', 'Arial', sans-serif;
     position: relative;
     display: flex;
     flex-direction: column;
-    font-family: 'Inter', 'Arial', sans-serif;
     box-sizing: border-box;
+    margin: 45px auto 60px auto;
+    max-width: 880px;
+    min-height: 100vh;
 }
 
-@media screen and (max-width:968px) {
-    .page{
-        margin: 28px 19px 36px 19px;
-    }
-}

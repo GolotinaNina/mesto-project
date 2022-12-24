@@ -1,16 +1,16 @@
-.edit-form {
-    display: flex;
-    flex-direction: column;
-    width: 430px;
-    border-radius: 10px;
-    background-color: white;
-    padding: 34px 36px;
-    box-sizing: border-box;
-}
+.edit-form { 
+  display: flex; 
+  flex-direction: column; 
+  width: 430px; 
+  border-radius: 10px; 
+  background-color: white; 
+  padding: 34px 36px; 
+  box-sizing: border-box; 
+} 
 
-@media screen and (max-width:600px){
-    .edit-form {
-        width: 282px;
-        padding: 25px 22px;
-    }
-}
+ @media screen and (max-width:600px){ 
+  .edit-form { 
+    width: 282px; 
+    padding: 25px 22px; 
+    } 
+} 

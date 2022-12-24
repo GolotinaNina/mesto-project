@@ -7,5 +7,13 @@
 @media screen and (max-width:768px) {
     .profile__info {
         gap: 14px 16px;
+        
+    }
+}
+
+@media screen and (max-width:425px) {
+    .profile__info {
+        margin-top: 22px;
+        gap: 10px 14px;
     }
 }

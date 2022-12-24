@@ -2,7 +2,6 @@
     outline: 1px black solid;
     background-color: #FFF;
     border-radius: 10px;
-    text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
 }
