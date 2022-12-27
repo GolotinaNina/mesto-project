@@ -1,16 +1,19 @@
 .edit-form { 
   display: flex; 
   flex-direction: column; 
-  width: 430px; 
+  width: 430px;
   border-radius: 10px; 
   background-color: white; 
-  padding: 34px 36px; 
+  padding: 34px 36px 37px; 
   box-sizing: border-box; 
+  margin: 8px 40px 0;
 } 
-
- @media screen and (max-width:600px){ 
+ 
+ @media screen and (max-width: 600px){ 
   .edit-form { 
-    width: 282px; 
+    width: 282px;
+    height: 322px; 
     padding: 25px 22px; 
+    margin: 16px 0;
     } 
 } 

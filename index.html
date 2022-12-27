@@ -15,54 +15,54 @@
     </header>
     <main class="content">
     <section class="profile">
-        <img src="../mesto-project/images/avatar.jpg" class="profile__avatar">
+        <img src="./images/avatar.jpg" class="profile__avatar">
         <div class="profile__info">
-            <p class="profile__name">Жак-Ив Кусто</p>
+            <h1 class="profile__name">Жак-Ив Кусто</h1>
             <button type="button" class="profile__edit" id="profile__edit"></button>
             <p class="profile__about">Исследователь океана</p>
         </div>
-        <button type="menu" class="profile__add"></button>
+        <button type="button" class="profile__add"></button>
     </section>
     <section class="elements">
         <article class="element">
             <img src="./images/place-karachaevs.jpg" alt="Карачаевск" class="element__photo">
             <div class="element__group">
-                <h3 class="element__place-name">Карачаевск</h3>
+                <h2 class="element__place-name">Карачаевск</h2>
                 <button type="button" class="element__like-button"></button>
             </div>
         </article>
         <article class="element">
             <img src="./images/place-elbrus.jpg" alt="Гора Эльбрус" class="element__photo">
             <div class="element__group">
-                <h3 class="element__place-name">Гора Эльбрус</h3>
-                <button type="button" class="element__like-button element__like-button_status_selected"></button>
+                <h2 class="element__place-name">Гора Эльбрус</h2>
+                <button type="button" class="element__like-button element__like-button_status"></button>
             </div>
         </article>
         <article class="element">
             <img src="./images/place-dombai.jpg" alt="Домбай" class="element__photo">
             <div class="element__group">
-                <h3 class="element__place-name">Домбай</h3>
+                <h2 class="element__place-name">Домбай</h2>
                 <button type="button" class="element__like-button"></button>
             </div>
         </article>
         <article class="element">
             <img src="./images/place-elbrus.jpg" alt="Гора Эльбрус" class="element__photo">
             <div class="element__group">
-                <h3 class="element__place-name">Гора Эльбрус</h3>
+                <h2 class="element__place-name">Гора Эльбрус</h2>
                 <button type="button" class="element__like-button"></button>
             </div>
         </article>
         <article class="element">
             <img src="./images/place-dombai.jpg" alt="Домбай" class="element__photo">
             <div class="element__group">
-                <h3 class="element__place-name">Домбай</h3>
+                <h2 class="element__place-name">Домбай</h2>
                 <button type="button" class="element__like-button"></button>
             </div>
         </article>
         <article class="element">
             <img src="./images/place-karachaevs.jpg" alt="Карачаево-Черкесия" class="element__photo">
             <div class="element__group">
-                <h3 class="element__place-name">Карачаево-Черкесия</h3>
+                <h2 class="element__place-name">Карачаево-Черкесия</h2>
                 <button type="button" class="element__like-button"></button>
             </div>
         </article>
@@ -74,11 +74,11 @@
 
     <div class="popup popup_opened">
         <div class="popup__container">
-            <button type="menu" class="popup__close" id="popup__close"></button>
-            <form type="name" class="edit-form">
+            <button type="button" class="popup__close" id="popup__close"></button>
+            <form name="name" class="edit-form">
                 <h2 class="edit-form__title">Редактировать профиль</h2>
-                <input type="name" class="edit-form__input" value="Жак-Ив Кусто">
-                <input type="name" class="edit-form__input" value="Исследователь океана">
+                <input name="name" class="edit-form__input" value="Жак-Ив Кусто">
+                <input name="name" class="edit-form__input" value="Исследователь океана">
                 <button type="submit" class="edit-form__submit">Сохранить</button>
             </form>
         </div>

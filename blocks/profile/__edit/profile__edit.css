@@ -14,7 +14,7 @@
     transition: .5s;
 }
 
-@media screen and (max-width:425px) {
+@media screen and (max-width: 880px) {
     .profile__edit {
         width: 18px;
         height: 18px;

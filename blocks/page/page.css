@@ -2,11 +2,12 @@
     background-color: #000000;
     font-family: 'Inter', 'Arial', sans-serif;
     position: relative;
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-    margin: 45px auto 60px auto;
-    max-width: 880px;
-    min-height: 100vh;
+    margin: 45px 0 60px 0;
 }
+
+@media screen and (max-width:968px) { 
+.page{ 
+    margin: 28px 0 36px 0; 
+ } 
+} 
 
