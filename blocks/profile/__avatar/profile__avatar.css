@@ -4,6 +4,5 @@
     width: 128px;
     height: 128px;
     border-radius: 100%;
-    background-size: cover;
-    background-position: center;
+    background: url(../../../images/avatar.jpg) center/cover;
 }

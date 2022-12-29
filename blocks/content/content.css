@@ -5,11 +5,12 @@
     box-sizing: border-box;
     max-width: 880px;
     min-height: 100vh;
-    margin: 0 auto 0 auto;
-}    
-    
-@media screen and (max-width:968px) { 
-    .content{ 
-        margin: 0 19px 0 19px; 
-     } 
-    } 
+    margin: 0 auto;
+}
+
+@media screen and (max-width:968px) {
+    .content {
+        max-width: calc(968px - 2 * 19px);
+        margin: 0 19px;
+    }
+}
