@@ -2,11 +2,11 @@
     background: center/contain url(../../../images/close.svg) no-repeat;
     cursor: pointer;
     border: none;
-    top: 0;
-    right: 0;
+    position: absolute;
+    top: -40px;
+    right: -40px;
     width: 32px;
     height: 32px;
-    align-self: flex-end;
 }
 
 .popup__close:hover {
@@ -18,5 +18,6 @@
     .popup__close {
         width: 20px;
         height: 20px;
+        right: 0;
     }
 }
