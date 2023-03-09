@@ -83,10 +83,11 @@ function addElement(el) {
 
 initElements();
 
-function expandPicture(el){
+function expandPicture(el,event){
     let name = el.getAttribute('alt');
     let link = el.getAttribute('src');
 
+    event.stopPropagation();
     popupExpandPicture.classList.add('popup_opened');
     let picture = popupExpandPicture.querySelector('.popup__picture');
     picture.setAttribute('src', link);
