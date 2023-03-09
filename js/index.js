@@ -70,6 +70,15 @@ function addElement(el) {
     userElement.querySelector('.element__photo').setAttribute('alt', el.name);
     userElement.querySelector('.element__place-name').textContent = el.name;
     elements.prepend(userElement);
+
+    userElement.querySelector('.element__delete').parentElement.addEventListener('click', function(event){
+        this.remove();
+    });
+
+    userElement.querySelector('.element__like-button').addEventListener('click', function(event){
+        event.stopPropagation();
+        this.classList.toggle('element__like-button_status');
+    });
 }
 
 initElements();
@@ -97,19 +106,6 @@ formEditProfile.addEventListener('submit', function(event){
     
     event.preventDefault();
     popupEditProfile.classList.remove('popup_opened');
-});
-
-document.querySelectorAll('.element__like-button').forEach(function(el){
-    el.addEventListener('click', function(event){
-        event.stopPropagation();
-        this.classList.toggle('element__like-button_status');
-    });
-});
-
-document.querySelectorAll('.element__delete').forEach(function(el){
-    el.parentElement.addEventListener('click', function(event){
-        this.remove();
-    });
 });
 
 addOpenCloseEvents(popupNewPlace, buttonNewPlace, buttonCloseNewPlace);
