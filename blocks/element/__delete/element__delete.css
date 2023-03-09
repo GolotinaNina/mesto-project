@@ -1,0 +1,22 @@
+.element__delete {
+    position: absolute;
+    display: block;
+    right: 15px;
+    top: 18px;
+    background: url(../../../images/урна.svg);
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    transition: opacity .3s linear;
+    cursor: pointer;
+    width: 18px;
+    height: 19px;
+    padding: 0;
+   border: none;
+    
+    
+  }
+  
+  .element__delete:hover {
+    opacity: .6;
+  }

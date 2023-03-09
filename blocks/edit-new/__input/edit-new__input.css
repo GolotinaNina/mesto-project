@@ -1,4 +1,4 @@
-.edit-form__input {
+.edit-new__input {
     margin-top: 30px;
     font-family: 'Inter', 'Arial', 'sans-serif';
     font-style: normal;
@@ -10,18 +10,12 @@
     padding: 0 0 13px;
 }
 
-.edit-form__input:first-of-type {
+.edit-new__input:first-of-type {
     margin-top: 54px;
 }
 
 @media screen and (max-width: 880px) {
-    .edit-form__input:first-of-type {
+    .edit-new__input:first-of-type {
         margin-top: 75px;
     } 
-}
-
-.edit-form__input:focus {
-    outline-color: rgb(0, 140, 255);
-    outline-style: solid;
-    outline-width: 2px;
 }

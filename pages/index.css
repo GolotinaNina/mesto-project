@@ -23,6 +23,7 @@
 @import url(../blocks/element/__place-name/element__place-name.css);
 @import url(../blocks/element/__like-button/element__like-button.css);
 @import url(../blocks/element/__like-button/_status/element__like-button_status.css);
+@import url(../blocks/element/__delete/element__delete.css);
 
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__text/footer__text.css);
@@ -31,8 +32,34 @@
 @import url(../blocks/popup/__close/popup__close.css);
 @import url(../blocks/popup/__container/popup__container.css);
 @import url(../blocks/popup/_opened/popup_opened.css);
+@import url(../blocks/popup/__picture/popup__picture.css);
+@import url(../blocks/popup/__description/popup__description.css);
+@import url(../blocks/popup/__box/popup__box.css);
+
 
 @import url(../blocks/edit-form/edit-form.css);
 @import url(../blocks/edit-form/__title/edit-form__title.css);
 @import url(../blocks/edit-form/__submit/edit-form__submit.css); 
 @import url(../blocks/edit-form/__input/edit-form__input.css);
+
+@import url(../blocks/edit-new/edit-new.css);
+@import url(../blocks/edit-new/__input/edit-new__input.css);
+@import url(../blocks/edit-new/__submit/edit-new__submit.css);
+@import url(../blocks/edit-new/__title/edit-new__title.css);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

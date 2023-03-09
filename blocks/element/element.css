@@ -1,4 +1,6 @@
 .element {
+    position: relative;
+    display: inline-block;
     outline: 1px black solid;
     background-color: #FFF;
     border-radius: 10px;

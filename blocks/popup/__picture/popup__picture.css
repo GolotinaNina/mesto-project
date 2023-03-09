@@ -1,0 +1,8 @@
+.popup__picture {
+    border: 1px solid #000;
+    box-shadow: 0 4px 4px rgb(0 0 0 / 25%);
+    max-height: 75vh;
+    max-width: 75vw;
+    object-fit: cover;
+    overflow: hidden;
+}

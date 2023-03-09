@@ -1,0 +1,4 @@
+.edit-new {
+    display: flex;
+    flex-direction: column; 
+}

@@ -1,0 +1,6 @@
+.popup__box {
+    position: relative;
+    align-self: center;
+   background-color: transparent;
+   box-sizing: border-box;
+}
