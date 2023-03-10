@@ -17,7 +17,7 @@
         <section class="profile">
             <div class="profile__avatar"></div>
             <div class="profile__info">
-                <h1 class="profile__name">Жак-Ив Кусто</h1>
+                <h1 class=" profile__name">Жак-Ив Кусто</h1>
                 <button type="button" class="profile__edit" id="profile__edit"></button>
                 <p class="profile__about">Исследователь океана</p>
             </div>
@@ -34,8 +34,8 @@
             <button type="button" class="popup__close"></button>
             <form name="name" class="edit-form">
                 <h2 class="edit-form__title">Редактировать профиль</h2>
-                <input name="name" class="edit-form__input" value="Жак-Ив Кусто">
-                <input name="about" class="edit-form__input" value="Исследователь океана">
+                <input name="name" maxlength="30" minlength="2" class="edit-form__input" value="Жак-Ив Кусто" required>
+                <input name="about" maxlength="30" minlength="2" class="edit-form__input" value="Исследователь океана" required>
                 <button type="submit" class="edit-form__submit">Сохранить</button>
             </form>
         </div>
@@ -46,14 +46,14 @@
             <button type="button" class="popup__close"></button>
             <form class="edit-new">
                 <h2 class="edit-new__title">Новое место</h2>
-                <input name="name" class="edit-new__input" placeholder="Название места">
-                <input name="link" class="edit-new__input" placeholder="Ссылка на картинку">
-                <button type="submit" class="edit-new__submit">Создать</button>
+                <input name="name" maxlength="30" minlength="2" class="edit-new__input" placeholder="Название места" required>
+                <input name="link" class="edit-new__input" placeholder="Ссылка на картинку" required>
+                <button type="submit" class="edit-new__submit">Создать</button> 
             </form>
         </div>
     </div>
     
-    <div class="popup" id="popup__expand_picture">
+    <div class="popup popup_picture_blackout" id="popup__expand_picture">
         <div class="popup__box">
             <button type="button" class="popup__close"></button>
             <img class="popup__picture"
