@@ -79,7 +79,8 @@ function addOpenEvents(popup, elOpen, action){
     elOpen.addEventListener('click', function (event) {
         event.stopPropagation();
         addOpenClass(popup);
-        action();
+        if(action != null)
+            action();
     }); 
 };
 
