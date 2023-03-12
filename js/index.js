@@ -58,11 +58,11 @@ function initElements() {
     }
 }
 
-function addOpenEvents(popup, elOpen, func){
+function addOpenEvents(popup, elOpen, action){
     elOpen.addEventListener('click', function (event) {
         event.stopPropagation();
         popup.classList.add('popup_opened');
-        func();
+        action();
     }); 
 };
 
@@ -72,13 +72,13 @@ function addCloseEvents(popup, elClose){
     });
 };
 
-addCloseEvents(popupExpandPicture,buttonCloseExpandPicture);
+addCloseEvents(popupExpandPicture, buttonCloseExpandPicture);
 
 function addElement(el){
-    elements.prepend(GetElement(el.link, el.name));
+    elements.prepend(getElement(el.link, el.name));
 }
 
-function GetElement(link, name) {
+function getElement(link, name) {
 
     const userElement = userTemplate.querySelector('.element').cloneNode(true);
 
@@ -97,7 +97,7 @@ function GetElement(link, name) {
         this.classList.toggle('element__like-button_status');
     });
 
-    addOpenEvents(popupExpandPicture, photo, openPopupImage(name, link));
+    addOpenEvents(popupExpandPicture, userElement.querySelector('.element__photo'), () => openPopupImage(name, link));
 
     return userElement;
 }
@@ -124,7 +124,7 @@ formEditProfile.addEventListener('submit', function(event){
     popupEditProfile.classList.remove('popup_opened');
 });
 
-addOpenEvents(popupNewPlace, buttonNewPlace);
+addOpenEvents(popupNewPlace, buttonNewPlace,() => clearPopupNewPlace());
 addCloseEvents(popupNewPlace, buttonCloseNewPlace);
 
 formNewPlace.addEventListener('submit', function(event){
@@ -132,3 +132,8 @@ formNewPlace.addEventListener('submit', function(event){
     addElement({name: popupNewPlaceName.value, link: popupNewPlaceLink.value});
     popupNewPlace.classList.remove('popup_opened');
 });
+
+function clearPopupNewPlace(){
+    popupNewPlaceName.value = "";
+    popupNewPlaceLink.value = "";
+}
