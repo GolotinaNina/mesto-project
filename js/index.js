@@ -8,7 +8,7 @@ const config = {
 
 let personalData = {};
 
-const getPersonalData = () => {
+const getProfileData = () => {
     return fetch(`${config.baseUrl}/users/me`, {
       headers: config.headers
     })
@@ -22,8 +22,27 @@ const getPersonalData = () => {
     })
     .then(res => {
         personalData = res;
+        setProfileData(res.name, res.about);
     });
 } 
+
+const patchProfileData = (name, about) =>{
+    fetch(`${config.baseUrl}/users/me`, {
+        method: 'PATCH',
+        headers: config.headers,
+        body: JSON.stringify({
+          name: name,
+          about: about
+        })
+    })
+    .then(res =>{
+        personalData = res;
+        setProfileData(res.name, res.about);
+    })
+    .catch((err) => {
+        console.log(err); // выводим ошибку в консоль
+    }); 
+}
 
 const getInitialCards = () => {
     return fetch(`${config.baseUrl}/cards`, {
@@ -39,16 +58,13 @@ const getInitialCards = () => {
     });
 } 
 
-let prRes = [];
-
-getPersonalData()
+getProfileData()
 .then(getInitialCards)
 .then((result) => {
-    prRes = result;
     result.forEach(el => addElement(el));
 })
 .catch((err) => {
-  console.log(err); // выводим ошибку в консоль
+    console.log(err); // выводим ошибку в консоль
 }); 
 
 const userTemplate = document.querySelector('#elTemplate').content;
@@ -94,8 +110,10 @@ const closePopupElements = [
     }
 ];
 
-closePopupElements.forEach((el) => addCloseEvents(el.popup, el.button));
-closePopupElements.forEach((el) => addCloseEvents(el.popup, el.popup));
+closePopupElements.forEach((el) => {
+    addCloseEvents(el.popup, el.button);
+    addCloseEvents(el.popup, el.popup);
+});
 
 document.querySelectorAll('.popup__container').forEach((el) => el.addEventListener('click',(e) => e.stopPropagation()));
 
@@ -123,7 +141,7 @@ function addOpenClass(el){
 }
 
 function addElement(el){
-    elements.prepend(getElement(el.link, el.name,el._id));
+    elements.prepend(getElement(el.link, el.name, el._id));
 }
 
 function getElement(link, name, id) {
@@ -131,6 +149,7 @@ function getElement(link, name, id) {
     const userElement = userTemplate.querySelector('.element').cloneNode(true);
     const delButton = userButtonTemplate.querySelector('.element__delete').cloneNode(true);
     const photo = userElement.querySelector('.element__photo');
+    const likeButton = userElement.querySelector('.element__like-button');
 
     if(id == personalData._id){
         userElement.addElement(delButton);
@@ -143,7 +162,7 @@ function getElement(link, name, id) {
     photo.setAttribute('alt', name);
     userElement.querySelector('.element__place-name').textContent = name;
 
-    userElement.querySelector('.element__like-button').addEventListener('click', function(event){
+    likeButton.addEventListener('click', function(event){
         event.stopPropagation();
         this.classList.toggle('element__like-button_status');
     });
@@ -165,12 +184,16 @@ addOpenEvents(popupEditProfile, buttonEditProfile);
 
 formEditProfile.addEventListener('submit', function(event){
 
-    profileName.textContent = popupEditProfileName.value;
-    profileAbout.textContent = popupEditProfileAbout.value;
+    patchProfileData(popupEditProfileName.value, popupEditProfileAbout.value)
     
     event.preventDefault();
     removeOpenClass(popupEditProfile);
 });
+
+const setProfileData = (name, about) =>{
+    profileName.textContent = name;
+    profileAbout.textContent = about;
+}
 
 addOpenEvents(popupNewPlace, buttonNewPlace,() => clearPopupNewPlace());
 
