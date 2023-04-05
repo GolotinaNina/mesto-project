@@ -1,31 +1,58 @@
-const initialCards = [
-    {
-        name: 'Архыз',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-        name: 'Челябинская область',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-        name: 'Иваново',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-        name: 'Камчатка',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-        name: 'Холмогорский район',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-        name: 'Байкал',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+const config = {
+    baseUrl: 'https://nomoreparties.co/v1/plus-cohort-22',
+    headers: {
+      authorization: '01a3fc80-66ed-437d-82ce-f240976e36ea',
+      'Content-Type': 'application/json'
     }
-];
+  }
+
+let personalData = {};
+
+const getPersonalData = () => {
+    return fetch(`${config.baseUrl}/users/me`, {
+      headers: config.headers
+    })
+    .then(res => {
+        if (res.ok) {
+             return res.json();
+        }
+  
+        // если ошибка, отклоняем промис
+        return Promise.reject(`Ошибка: ${res.status}`);
+    })
+    .then(res => {
+        personalData = res;
+    });
+} 
+
+const getInitialCards = () => {
+    return fetch(`${config.baseUrl}/cards`, {
+      headers: config.headers
+    })
+    .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+  
+        // если ошибка, отклоняем промис
+        return Promise.reject(`Ошибка: ${res.status}`);
+    });
+} 
+
+let prRes = [];
+
+getPersonalData()
+.then(getInitialCards)
+.then((result) => {
+    prRes = result;
+    result.forEach(el => addElement(el));
+})
+.catch((err) => {
+  console.log(err); // выводим ошибку в консоль
+}); 
 
 const userTemplate = document.querySelector('#elTemplate').content;
+const userButtonTemplate = document.querySelector('#elButtonTemplate').content;
 const elements = document.querySelector('.elements');
 
 const popupEditProfile = document.querySelector('#popup__edit_profile');
@@ -72,12 +99,6 @@ closePopupElements.forEach((el) => addCloseEvents(el.popup, el.popup));
 
 document.querySelectorAll('.popup__container').forEach((el) => el.addEventListener('click',(e) => e.stopPropagation()));
 
-function initElements() {
-    for (let i = initialCards.length - 1; i >= 0; i--) {
-        addElement(initialCards[i]);
-    }
-}
-
 function addOpenEvents(popup, elOpen, action){
     elOpen.addEventListener('click', function (event) {
         event.stopPropagation();
@@ -102,21 +123,25 @@ function addOpenClass(el){
 }
 
 function addElement(el){
-    elements.prepend(getElement(el.link, el.name));
+    elements.prepend(getElement(el.link, el.name,el._id));
 }
 
-function getElement(link, name) {
+function getElement(link, name, id) {
 
     const userElement = userTemplate.querySelector('.element').cloneNode(true);
+    const delButton = userButtonTemplate.querySelector('.element__delete').cloneNode(true);
     const photo = userElement.querySelector('.element__photo');
+
+    if(id == personalData._id){
+        userElement.addElement(delButton);
+        userElement.querySelector('.element__delete').addEventListener('click', function(){
+            this.parentElement.remove();
+        });
+    }
 
     photo.setAttribute('src', link);
     photo.setAttribute('alt', name);
     userElement.querySelector('.element__place-name').textContent = name;
-
-    userElement.querySelector('.element__delete').addEventListener('click', function(){
-        this.parentElement.remove();
-    });
 
     userElement.querySelector('.element__like-button').addEventListener('click', function(event){
         event.stopPropagation();
@@ -127,8 +152,6 @@ function getElement(link, name) {
 
     return userElement;
 }
-
-initElements();
 
 function openPopupImage(name,link){
 
