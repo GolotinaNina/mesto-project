@@ -68,6 +68,9 @@ const closePopupElements = [
 ];
 
 closePopupElements.forEach((el) => addCloseEvents(el.popup, el.button));
+closePopupElements.forEach((el) => addCloseEvents(el.popup, el.popup));
+
+document.querySelectorAll('.popup__container').forEach((el) => el.addEventListener('click',(e) => e.stopPropagation()));
 
 function initElements() {
     for (let i = initialCards.length - 1; i >= 0; i--) {
