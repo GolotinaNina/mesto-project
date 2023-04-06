@@ -1,0 +1,4 @@
+.edit-delete {
+    display: flex;
+    flex-direction: column; 
+}

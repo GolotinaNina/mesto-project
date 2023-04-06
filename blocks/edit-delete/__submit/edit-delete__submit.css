@@ -1,0 +1,28 @@
+.edit-delete__submit {
+    margin-top: 48px;
+    padding: 14px 0 18px 0;
+    border-radius: 2px;
+    background-color: black;
+    color: white;
+    font-family: 'Inter', 'Arial', 'sans-serif';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    border: 0;
+}
+
+.edit-delete__submit:hover{
+    opacity: .8;
+}
+
+@media screen and (max-width: 880px) {
+    .edit-delete__submit {
+        padding: 14px 0 14px 0;
+        font-size: 14px;
+        line-height: 17px;
+        margin-top: 45px;
+    } 
+}
+

@@ -1,74 +1,4 @@
-const config = {
-    baseUrl: 'https://nomoreparties.co/v1/plus-cohort-22',
-    headers: {
-      authorization: '01a3fc80-66ed-437d-82ce-f240976e36ea',
-      'Content-Type': 'application/json'
-    }
-  }
-
-let personalData = {};
-
-const getProfileData = () => {
-    return fetch(`${config.baseUrl}/users/me`, {
-      headers: config.headers
-    })
-    .then(res => {
-        if (res.ok) {
-             return res.json();
-        }
-  
-        // если ошибка, отклоняем промис
-        return Promise.reject(`Ошибка: ${res.status}`);
-    })
-    .then(res => {
-        personalData = res;
-        setProfileData(res.name, res.about);
-    });
-} 
-
-const patchProfileData = (name, about) =>{
-    fetch(`${config.baseUrl}/users/me`, {
-        method: 'PATCH',
-        headers: config.headers,
-        body: JSON.stringify({
-          name: name,
-          about: about
-        })
-    })
-    .then(res =>{
-        personalData = res;
-        setProfileData(res.name, res.about);
-    })
-    .catch((err) => {
-        console.log(err); // выводим ошибку в консоль
-    }); 
-}
-
-const getInitialCards = () => {
-    return fetch(`${config.baseUrl}/cards`, {
-      headers: config.headers
-    })
-    .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-  
-        // если ошибка, отклоняем промис
-        return Promise.reject(`Ошибка: ${res.status}`);
-    });
-} 
-
-getProfileData()
-.then(getInitialCards)
-.then((result) => {
-    result.forEach(el => addElement(el));
-})
-.catch((err) => {
-    console.log(err); // выводим ошибку в консоль
-}); 
-
 const userTemplate = document.querySelector('#elTemplate').content;
-const userButtonTemplate = document.querySelector('#elButtonTemplate').content;
 const elements = document.querySelector('.elements');
 
 const popupEditProfile = document.querySelector('#popup__edit_profile');
@@ -110,6 +40,129 @@ const closePopupElements = [
     }
 ];
 
+const config = {
+    baseUrl: 'https://nomoreparties.co/v1/plus-cohort-22',
+    headers: {
+      authorization: '01a3fc80-66ed-437d-82ce-f240976e36ea',
+      'Content-Type': 'application/json'
+    }
+  }
+
+let personalData = {};
+
+const getProfileData = () => {
+    return fetch(`${config.baseUrl}/users/me`, {
+      headers: config.headers
+    })
+    .then(getPromiseResult)
+    .then(res => {
+        personalData = res;
+        setProfileData(res.name, res.about);
+    });
+} 
+
+const patchProfileData = (name, about) =>{
+    fetch(`${config.baseUrl}/users/me`, {
+        method: 'PATCH',
+        headers: config.headers,
+        body: JSON.stringify({
+          name: name,
+          about: about
+        })
+    })
+    .then(getPromiseResult)
+    .then(res => {
+        personalData = res;
+        setProfileData(res.name, res.about);
+    })
+    .catch((err) => {
+        console.log(err); // выводим ошибку в консоль
+    }); 
+}
+
+const postCard = (name, link) => {
+    fetch(`${config.baseUrl}/cards`, {
+        method: 'POST',
+        headers: config.headers,
+        body: JSON.stringify({
+          name: name,
+          link: link
+        })
+    })
+    .then(getPromiseResult)
+    .then(el => {
+        addElement(el);
+    });
+}
+
+const deleteCard = (id, card) =>{
+    fetch(`${config.baseUrl}/cards/${id}`, {
+        method: 'DELETE',
+        headers: config.headers
+    })
+    .then(getPromiseResult)
+    .then(() => {
+        card.remove();
+    })
+    .catch((err) => {
+        console.log(err); // выводим ошибку в консоль
+    });
+}
+
+const putLike = (id, counter, likeButton) =>{
+    fetch(`${config.baseUrl}/cards/likes/${id}`, {
+        method: 'PUT',
+        headers: config.headers
+    })
+    .then(getPromiseResult)
+    .then((res) => {
+        setCount(counter, res.likes.length);
+        likeButton.classList.toggle('element__like-button_status');
+    })
+    .catch((err) => {
+        console.log(err); // выводим ошибку в консоль
+    });
+}
+
+const deleteLike = (id, counter, likeButton) =>{
+    fetch(`${config.baseUrl}/cards/likes/${id}`, {
+        method: 'DELETE',
+        headers: config.headers
+    })
+    .then(getPromiseResult)
+    .then((res) => {
+            setCount(counter, res.likes.length);
+            likeButton.classList.toggle('element__like-button_status');
+    })
+    .catch((err) => {
+        console.log(err); // выводим ошибку в консоль
+    });
+}
+
+const getInitialCards = () => {
+    return fetch(`${config.baseUrl}/cards`, {
+      headers: config.headers
+    })
+    .then(getPromiseResult);
+} 
+
+function getPromiseResult(res){
+    if (res.ok) {
+          return res.json();
+        }
+    // если ошибка, отклоняем промис
+    return Promise.reject(`Ошибка: ${res.status}`);
+}
+
+getProfileData()
+.then(getInitialCards)
+.then((result) => {
+    result.forEach(el => addElement(el));
+})
+.catch((err) => {
+    console.log(err); // выводим ошибку в консоль
+}); 
+
 closePopupElements.forEach((el) => {
     addCloseEvents(el.popup, el.button);
     addCloseEvents(el.popup, el.popup);
@@ -141,35 +194,53 @@ function addOpenClass(el){
 }
 
 function addElement(el){
-    elements.prepend(getElement(el.link, el.name, el._id));
+    elements.prepend(getElement(el));
 }
 
-function getElement(link, name, id) {
+function getElement(el) {
 
     const userElement = userTemplate.querySelector('.element').cloneNode(true);
-    const delButton = userButtonTemplate.querySelector('.element__delete').cloneNode(true);
+    const delButton = userElement.querySelector('.element__delete');
     const photo = userElement.querySelector('.element__photo');
     const likeButton = userElement.querySelector('.element__like-button');
+    const counter = userElement.querySelector('.counter');
 
-    if(id == personalData._id){
-        userElement.addElement(delButton);
-        userElement.querySelector('.element__delete').addEventListener('click', function(){
-            this.parentElement.remove();
-        });
-    }
+    userElement.id = el._id;
 
-    photo.setAttribute('src', link);
-    photo.setAttribute('alt', name);
-    userElement.querySelector('.element__place-name').textContent = name;
+    if(el.owner._id != personalData._id)
+        delButton.remove();
+    else
+        delButton.addEventListener('click', () => deleteCard(el._id, userElement));
+
+    photo.setAttribute('src', el.link);
+    photo.setAttribute('alt', el.name);
+    userElement.querySelector('.element__place-name').textContent = el.name;
+
+    if(el.likes.map(x => x._id).includes(personalData._id))
+        likeButton.classList.toggle('element__like-button_status');
+
+    setCount(counter, el.likes.length);
 
     likeButton.addEventListener('click', function(event){
+        
         event.stopPropagation();
-        this.classList.toggle('element__like-button_status');
+        
+        if(this.classList.contains('element__like-button_status'))
+            deleteLike(el._id, counter, this);
+        else
+            putLike(el._id, counter, this);
     });
 
-    addOpenEvents(popupExpandPicture, userElement.querySelector('.element__photo'), () => openPopupImage(name, link));
+    addOpenEvents(popupExpandPicture, photo, () => openPopupImage(el.name, el.link));
 
     return userElement;
+}
+
+function setCount(counter, count){
+    if(count > 0)
+        counter.textContent = count;
+    else
+        counter.textContent = "";
 }
 
 function openPopupImage(name,link){
@@ -180,7 +251,12 @@ function openPopupImage(name,link){
     pictureDecription.textContent = name;
 };
 
-addOpenEvents(popupEditProfile, buttonEditProfile);
+addOpenEvents(popupEditProfile, buttonEditProfile, updateProfilePopupValues);
+
+function updateProfilePopupValues() {
+    popupEditProfileName.value = profileName.textContent;
+    popupEditProfileAbout.value = profileAbout.textContent
+}
 
 formEditProfile.addEventListener('submit', function(event){
 
@@ -199,7 +275,7 @@ addOpenEvents(popupNewPlace, buttonNewPlace,() => clearPopupNewPlace());
 
 formNewPlace.addEventListener('submit', function(event){
     event.preventDefault();
-    addElement({name: popupNewPlaceName.value, link: popupNewPlaceLink.value});
+    postCard(popupNewPlaceName.value, popupNewPlaceLink.value);
     removeOpenClass(popupNewPlace);
 });
 

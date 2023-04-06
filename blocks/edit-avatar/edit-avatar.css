@@ -1,0 +1,4 @@
+.edit-avatar {
+    display: flex;
+    flex-direction: column; 
+}

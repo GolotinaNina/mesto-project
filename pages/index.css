@@ -50,6 +50,27 @@
 @import url(../blocks/edit-new/__title/edit-new__title.css);
 
 
+@import url(../blocks/edit-avatar/edit-avatar.css);
+@import url(../blocks/edit-avatar/__title/edit-avatar__title.css);
+@import url(../blocks/edit-avatar/__input/edit-avatar__input.css);
+@import url(../blocks/edit-avatar/__submit/edit-avatar__submit.css);
+
+@import url(../blocks/edit-delete/edit-delete.css);
+@import url(../blocks/edit-delete/__title/edit-delete__title.css);
+@import url(../blocks/edit-delete/__submit/edit-delete__submit.css);
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

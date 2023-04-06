@@ -1,4 +1,4 @@
-.edit-new__input {
+.edit-avatar__input {
     margin-top: 30px;
     font-family: 'Inter', 'Arial', 'sans-serif';
     font-style: normal;
@@ -10,20 +10,18 @@
     padding: 0 0 13px;
 }
 
-.edit-new__input:first-of-type {
+.edit-avatar__input:first-of-type {
     margin-top: 54px;
 }
 
 @media screen and (max-width: 880px) {
-    .edit-new__input:first-of-type {
+    .edit-avatar__input:first-of-type {
         margin-top: 75px;
     } 
 }
 
-.edit-new__input:invalid {
-    border-bottom: 1px solid red;
-}
-
-.edit-new__input_type_error {
-    border-bottom-color: red;
+.edit-avatar__input:focus {
+    outline-color: rgb(0, 140, 255);
+    outline-style: solid;
+    outline-width: 2px;
 }
