@@ -24,6 +24,7 @@
 @import url(../blocks/element/__like-button/element__like-button.css);
 @import url(../blocks/element/__like-button/_status/element__like-button_status.css);
 @import url(../blocks/element/__delete/element__delete.css);
+@import url(../blocks/element/__like-group/element__like-group.css);
 
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__text/footer__text.css);
@@ -41,7 +42,7 @@
 
 @import url(../blocks/edit-form/edit-form.css);
 @import url(../blocks/edit-form/__title/edit-form__title.css);
-@import url(../blocks/edit-form/__submit/edit-form__submit.css); 
+@import url(../blocks/edit-form/__submit/edit-form__submit.css);
 @import url(../blocks/edit-form/__input/edit-form__input.css);
 
 @import url(../blocks/edit-new/edit-new.css);
@@ -60,25 +61,34 @@
 @import url(../blocks/edit-delete/__submit/edit-delete__submit.css);
 
 
+.name-form-error {
+    color: red;
+    display: block;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 15px;
+    margin: 0;
+    min-height: 15px;
+    padding: 5px 0 0;
+    visibility: hidden;
+}
+
+.form__submit_inactive {
+    background-color: #f1f1f1;
+    cursor: default;
+}
 
 
+.form__field {
+    display: flex;
+    flex-direction: column;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.edit-form-error {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+    color: #FF0000;
+}

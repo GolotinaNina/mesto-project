@@ -21,7 +21,7 @@
 }
 
 .edit-new__input:invalid {
-    border-bottom: 1px solid red;
+    border-bottom: 1px solid rgba(0, 0, 0, .2);
 }
 
 .edit-new__input_type_error {

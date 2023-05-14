@@ -25,3 +25,11 @@
     outline-style: solid;
     outline-width: 2px;
 }
+
+.edit-form__input:invalid {
+    border-bottom: 1px solid red;
+}
+
+.edit-form__input_type_error {
+    border-bottom-color: red;
+}

@@ -16,7 +16,6 @@ const popupNewPlace = document.querySelector('#popup__new_place');
 const buttonNewPlace = document.querySelector('#element__add');
 const buttonCloseNewPlace = popupNewPlace.querySelector('button.popup__close');
 const formNewPlace = popupNewPlace.querySelector('.edit-new');
-
 const popupNewPlaceName = popupNewPlace.querySelector('.edit-new__input[name="name"]');
 const popupNewPlaceLink = popupNewPlace.querySelector('.edit-new__input[name="link"]');
 
@@ -255,7 +254,9 @@ addOpenEvents(popupEditProfile, buttonEditProfile, updateProfilePopupValues);
 
 function updateProfilePopupValues() {
     popupEditProfileName.value = profileName.textContent;
-    popupEditProfileAbout.value = profileAbout.textContent
+    popupEditProfileAbout.value = profileAbout.textContent;
+    isValid(formEditProfile, popupEditProfileName);
+    isValid(formEditProfile, popupEditProfileAbout);
 }
 
 formEditProfile.addEventListener('submit', function(event){
@@ -271,7 +272,7 @@ const setProfileData = (name, about) =>{
     profileAbout.textContent = about;
 }
 
-addOpenEvents(popupNewPlace, buttonNewPlace,() => clearPopupNewPlace());
+addOpenEvents(popupNewPlace, buttonNewPlace, clearPopupNewPlace);
 
 formNewPlace.addEventListener('submit', function(event){
     event.preventDefault();
@@ -282,4 +283,202 @@ formNewPlace.addEventListener('submit', function(event){
 function clearPopupNewPlace(){
     popupNewPlaceName.value = "";
     popupNewPlaceLink.value = "";
+    checkButtonIsValid(formNewPlace);
 }
+
+// Валидация
+
+const showInputError = (formElement, inputElement, errorMessage) => {
+    // Находим элемент ошибки внутри самой функции
+    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+    // Остальной код такой же
+    inputElement.classList.add('form__input_type_error');
+    errorElement.textContent = errorMessage;
+    errorElement.classList.add('form__input-error_active');
+  };
+  
+  const hideInputError = (formElement, inputElement) => {
+    // Находим элемент ошибки
+    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+    // Остальной код такой же
+    inputElement.classList.remove('form__input_type_error');
+    errorElement.classList.remove('form__input-error_active');
+    errorElement.textContent = '';
+  }; 
+  
+  const isValid = (formElement, inputElement) => {
+    if (!inputElement.validity.valid) {
+      // showInputError теперь получает параметром форму, в которой
+      // находится проверяемое поле, и само это поле
+      showInputError(formElement, inputElement, inputElement.validationMessage);
+    } else {
+      // hideInputError теперь получает параметром форму, в которой
+      // находится проверяемое поле, и само это поле
+      hideInputError(formElement, inputElement);
+    }
+  }; 
+
+  const toggleButtonState = (inputList, buttonElement) => {
+    // Если есть хотя бы один невалидный инпут
+    if (hasInvalidInput(inputList)) {
+      // сделай кнопку неактивной
+          buttonElement.disabled = true;
+      buttonElement.classList.add('form__submit_inactive');
+    } else {
+          // иначе сделай кнопку активной
+          buttonElement.disabled = false;
+      buttonElement.classList.remove('form__submit_inactive');
+    }
+  };
+
+  const hasInvalidInput = (inputList) => {
+    // проходим по этому массиву методом some
+    return inputList.some((inputElement) => {
+          // Если поле не валидно, колбэк вернёт true
+      // Обход массива прекратится и вся функция
+      // hasInvalidInput вернёт true
+  
+      return !inputElement.validity.valid;
+    })
+  };
+
+    const setEventListeners = (formElement) => {
+        // Найдём все поля формы и сделаем из них массив
+        const inputList = Array.from(formElement.querySelectorAll(`input`));
+            // Найдём в текущей форме кнопку отправки
+        const buttonElement = formElement.querySelector('button[type="submit"]');
+
+        inputList.forEach((inputElement) => {
+            inputElement.addEventListener('input', () => {
+            isValid(formElement, inputElement);
+
+                    // Вызовем toggleButtonState и передадим ей массив полей и кнопку
+            toggleButtonState(inputList, buttonElement);
+            });
+        });
+    }; 
+
+    const checkButtonIsValid = (formElement) => {
+        // Найдём все поля формы и сделаем из них массив
+        const inputList = Array.from(formElement.querySelectorAll(`input`));
+            // Найдём в текущей форме кнопку отправки
+        const buttonElement = formElement.querySelector('button[type="submit"]');
+
+        toggleButtonState(inputList, buttonElement);
+    }; 
+
+  const enableValidation = () => {
+    // Найдём все формы с указанным классом в DOM,
+    // сделаем из них массив методом Array.from
+    const formList = Array.from(document.querySelectorAll('form'));
+  
+    // Переберём полученную коллекцию
+    formList.forEach((formElement) => {
+      // Для каждой формы вызовем функцию setEventListeners,
+      // передав ей элемент формы
+      setEventListeners(formElement);
+    });
+  };
+  
+  // Вызовем функцию
+  enableValidation(); 
+
+// -------------------
+
+// const addButton = document.querySelector('.edit-form__submit');
+// const songsContainer = document.querySelector('.edit-form__input');
+
+// console.log(document.forms.form0);
+// const form = document.forms.form0; // получаем форму
+// // вешаем на неё обработчик события submit
+// form.addEventListener('submit', function (evt) {
+//     // отменим стандартное поведение
+//     evt.preventDefault();
+// });
+
+// const form0 = document.forms.form0;
+// const name = form.elements.name;
+// const about = form.elements.about;
+
+// function addSong(nametValue, aboutValue) {
+//     const songTemplate = document.querySelector('#song-template').content;
+//     const songElement = songTemplate.cloneNode(true);
+// songsContainer.append(songElement);
+// }
+
+// form.addEventListener('submit', function (evt) {
+//     evt.preventDefault();
+//     addSong(name.value, about.value);
+//    setSubmitButtonState(false);
+// });
+
+// songsContainer.addEventListener('input', function (evt) {
+//     // Выведем в консоль значение свойства validity.valid поля ввода, 
+//     // на котором слушаем событие input
+//     console.log(evt.target.validity.valid);
+//   }); 
+
+// function setSubmitButtonState(isFormValid) {
+//     if (isFormValid) {
+//         addButton.removeAttribute('disabled');
+//         addButton.classList.remove('input__btn_disabled');
+//       } else {
+//        addButton.setAttribute('disabled', true);
+//       addButton.classList.add('input__btn_disabled'); 
+//       } 
+//   }
+
+//   form.addEventListener('input', function (evt) {
+//     const isValid = name.value.length > 0 && about.value.length > 0;
+//   setSubmitButtonState(isValid);
+// }); 
+
+
+
+// const gloButton = document.querySelector('.edit-new__submit');
+// const gloseContainer = document.querySelector('.edit-new__input');
+
+// console.log(document.forms.form2);
+// const forms = document.forms.form2; // получаем форму
+// // вешаем на неё обработчик события submit
+// forms.addEventListener('submit', function (evt) {
+//     // отменим стандартное поведение
+//     evt.preventDefault();
+// });
+
+// const form2 = document.forms.form2;
+// const name1 = form.elements.name1;
+// const link = form.elements.link;
+
+// function addSong(nametValue, linkValue) {
+//     const sonTemplate = document.querySelector('#son-template').content;
+//     const sonElement = sonTemplate.cloneNode(true);
+//     gloseContainer.append(sonElement);
+// }
+
+// forms.addEventListener('submit', function (evt) {
+//     evt.preventDefault();
+//     addSong(name.value, link.value);
+//    setSubmitButtonState(false);
+// });
+
+// gloseContainer.addEventListener('input', function (evt) {
+//     // Выведем в консоль значение свойства validity.valid поля ввода, 
+//     // на котором слушаем событие input
+//     console.log(evt.target.validity.valid);
+//   }); 
+
+// function setSubmitButtonState(isFormsValid) {
+//     if (isFormsValid) {
+//         gloButton.removeAttribute('disabled');
+//         gloButton.classList.remove('input__btn_disabled');
+//       } else {
+//         gloButton.setAttribute('disabled', true);
+//         gloButton.classList.add('input__btn_disabled'); 
+//       } 
+//   }
+
+//   form.addEventListener('input', function (evt) {
+//     const isValid = name.value.length > 0 && link.value.length > 0;
+//   setSubmitButtonState(isValid);
+// }); 
