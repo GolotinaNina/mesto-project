@@ -4,12 +4,13 @@
   "description": "Проектная работа: \"Место\". Создана в рамках учебы в Яндекс.Практикум на факультете \"Веб-разработчик Плюс\" учеником\r Голотиной Ниной.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "rd /s /q dist && webpack"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "webpack": "^5.82.1",
-    "webpack-cli": "^5.1.1"
+    "webpack-cli": "^5.1.1",
+    "webpack-dev-server": "^4.15.0"
   }
 }
