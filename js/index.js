@@ -286,9 +286,11 @@ function clearPopupNewPlace(){
     checkButtonIsValid(formNewPlace);
 }
 
-// Валидация
+ // Валидация
 
-const showInputError = (formElement, inputElement, errorMessage, params) => {
+let params = {};
+
+const showInputError = (formElement, inputElement, errorMessage) => {
     // Находим элемент ошибки внутри самой функции
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
     // Остальной код такой же
@@ -297,7 +299,7 @@ const showInputError = (formElement, inputElement, errorMessage, params) => {
     errorElement.classList.add(params.errorClass);
   };
   
-  const hideInputError = (formElement, inputElement, params) => {
+  const hideInputError = (formElement, inputElement) => {
     // Находим элемент ошибки
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
     // Остальной код такой же
@@ -306,7 +308,7 @@ const showInputError = (formElement, inputElement, errorMessage, params) => {
     errorElement.textContent = '';
   }; 
   
-  const isValid = (formElement, inputElement, params) => {
+  const isValid = (formElement, inputElement) => {
     if (!inputElement.validity.valid) {
       // showInputError теперь получает параметром форму, в которой
       // находится проверяемое поле, и само это поле
@@ -318,7 +320,7 @@ const showInputError = (formElement, inputElement, errorMessage, params) => {
     }
   }; 
 
-  const toggleButtonState = (inputList, buttonElement, params) => {
+  const toggleButtonState = (inputList, buttonElement) => {
     // Если есть хотя бы один невалидный инпут
     if (hasInvalidInput(inputList)) {
       // сделай кнопку неактивной
@@ -342,7 +344,7 @@ const showInputError = (formElement, inputElement, errorMessage, params) => {
     })
   };
 
-    const setEventListeners = (formElement, params) => {
+    const setEventListeners = (formElement) => {
         // Найдём все поля формы и сделаем из них массив
         const inputList = Array.from(formElement.querySelectorAll(params.inputSelector));
             // Найдём в текущей форме кнопку отправки
@@ -367,22 +369,21 @@ const showInputError = (formElement, inputElement, errorMessage, params) => {
         toggleButtonState(inputList, buttonElement);
     }; 
 
-  const enableValidation = (params) => {
+  const enableValidation = (p) => {
     // Найдём все формы с указанным классом в DOM,
     // сделаем из них массив методом Array.from
+    params = p;
+
     const formList = Array.from(document.querySelectorAll(params.formSelector));
   
     // Переберём полученную коллекцию
     formList.forEach((formElement) => {
       // Для каждой формы вызовем функцию setEventListeners,
       // передав ей элемент формы
-      setEventListeners(formElement, params);
+      setEventListeners(formElement);
     });
   };
   
-  // Вызовем функцию
-//   enableValidation(); 
-
   enableValidation({
     formSelector: 'form',
     inputSelector: 'input',
@@ -390,4 +391,4 @@ const showInputError = (formElement, inputElement, errorMessage, params) => {
     inactiveButtonClass: 'form__submit_inactive',
     inputErrorClass: 'form__input_type_error',
     errorClass: 'form__input-error_active'
-  }); 
+  });
