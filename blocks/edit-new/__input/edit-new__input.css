@@ -20,10 +20,12 @@
     } 
 }
 
-.edit-new__input:invalid {
+edit-new__input:valid {
     border-bottom: 1px solid rgba(0, 0, 0, .2);
-}
+} 
+
 
 .edit-new__input_type_error {
-    border-bottom-color: red;
+    border-bottom-color: 1px solid red;
 }
+

@@ -1,3 +1,5 @@
+import {enableValidation, checkButtonIsValid, isValid} from './components/validation.js';
+
 const userTemplate = document.querySelector('#elTemplate').content;
 const elements = document.querySelector('.elements');
 

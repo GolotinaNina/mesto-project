@@ -20,7 +20,7 @@ const hideInputError = (formElement, inputElement) => {
   errorElement.textContent = "";
 };
 
-const isValid = (formElement, inputElement) => {
+export const isValid = (formElement, inputElement) => {
   if (!inputElement.validity.valid) {
     // showInputError теперь получает параметром форму, в которой
     // находится проверяемое поле, и само это поле
@@ -79,7 +79,7 @@ const setEventListeners = (formElement) => {
   });
 };
 
-const checkButtonIsValid = (formElement) => {
+export const checkButtonIsValid = (formElement) => {
   // Найдём все поля формы и сделаем из них массив
   const inputList = Array.from(formElement.querySelectorAll(`input`));
   // Найдём в текущей форме кнопку отправки
@@ -88,7 +88,7 @@ const checkButtonIsValid = (formElement) => {
   toggleButtonState(inputList, buttonElement);
 };
 
-const enableValidation = (p) => {
+export const enableValidation = (p) => {
   // Найдём все формы с указанным классом в DOM,
   // сделаем из них массив методом Array.from
   params = p;
