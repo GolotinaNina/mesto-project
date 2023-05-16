@@ -10,11 +10,15 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/preset-env": "^7.21.5",
+    "babel-loader": "^9.1.2",
+    "html-webpack-plugin": "^5.5.1",
     "webpack": "^5.82.1",
     "webpack-cli": "^5.1.1",
     "webpack-dev-server": "^4.15.0"
   },
   "dependencies": {
+    "core-js": "^3.30.2",
     "rm": "^0.1.8"
   }
 }
