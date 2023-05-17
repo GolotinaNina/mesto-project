@@ -7,7 +7,9 @@ import {
 } from "./components/validation.js";
 
 import {
+  getProfileData,
   patchProfileData,
+  setCount,
   postCard,
   deleteCard,
   putLike,
@@ -21,16 +23,10 @@ const elements = document.querySelector(".elements");
 
 const popupEditProfile = document.querySelector("#popup__edit_profile");
 const buttonEditProfile = document.querySelector("#profile__edit");
-const buttonCloseEditProfile = popupEditProfile.querySelector(
-  "button.popup__close"
-);
+const buttonCloseEditProfile = popupEditProfile.querySelector("button.popup__close");
 const formEditProfile = popupEditProfile.querySelector(".edit-form");
-const popupEditProfileName = popupEditProfile.querySelector(
-  '.edit-form__input[name="name"]'
-);
-const popupEditProfileAbout = popupEditProfile.querySelector(
-  '.edit-form__input[name="about"]'
-);
+const popupEditProfileName = popupEditProfile.querySelector('.edit-form__input[name="name"]');
+const popupEditProfileAbout = popupEditProfile.querySelector('.edit-form__input[name="about"]');
 
 const profile = document.querySelector(".profile");
 const profileName = profile.querySelector(".profile__name");
@@ -40,17 +36,11 @@ const popupNewPlace = document.querySelector("#popup__new_place");
 const buttonNewPlace = document.querySelector("#element__add");
 const buttonCloseNewPlace = popupNewPlace.querySelector("button.popup__close");
 const formNewPlace = popupNewPlace.querySelector(".edit-new");
-const popupNewPlaceName = popupNewPlace.querySelector(
-  '.edit-new__input[name="name"]'
-);
-const popupNewPlaceLink = popupNewPlace.querySelector(
-  '.edit-new__input[name="link"]'
-);
+const popupNewPlaceName = popupNewPlace.querySelector('.edit-new__input[name="name"]');
+const popupNewPlaceLink = popupNewPlace.querySelector('.edit-new__input[name="link"]');
 
 const popupExpandPicture = document.querySelector("#popup__expand_picture");
-const buttonCloseExpandPicture = popupExpandPicture.querySelector(
-  "button.popup__close"
-);
+const buttonCloseExpandPicture = popupExpandPicture.querySelector("button.popup__close");
 const popupPicture = popupExpandPicture.querySelector(".popup__picture");
 const pictureDecription = popupExpandPicture.querySelector(".popup__description");
 
@@ -108,7 +98,7 @@ function addOpenClass(el) {
   el.classList.add("popup_opened");
 }
 
-function addElement(el) {
+export function addElement(el) {
   elements.prepend(getElement(el));
 }
 
@@ -150,15 +140,10 @@ function getElement(el) {
   });
 
   addOpenEvents(popupExpandPicture, photo, () =>
-    openPopupImage(el.name, el.link)
+    openPopupImage(el.name, el.link, popupPicture)
   );
 
   return userElement;
-}
-
-function setCount(counter, count) {
-  if (count > 0) counter.textContent = count;
-  else counter.textContent = "";
 }
 
 
