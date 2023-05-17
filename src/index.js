@@ -1,3 +1,5 @@
+import './../pages/index.css';
+
 import {
   enableValidation,
   checkButtonIsValid,
@@ -5,7 +7,6 @@ import {
 } from "./components/validation.js";
 
 import {
-  getProfileData,
   patchProfileData,
   postCard,
   deleteCard,
@@ -112,11 +113,11 @@ function addElement(el) {
 }
 
 function openPopupImage(name, link, elPopupPicture) {
-    elPopupPicture.setAttribute("src", link);
-    elPopupPicture.setAttribute("alt", name);
-  
-    pictureDecription.textContent = name;
-  }
+  elPopupPicture.setAttribute("src", link);
+  elPopupPicture.setAttribute("alt", name);
+
+  pictureDecription.textContent = name;
+}
 
 function getElement(el) {
   const userElement = userTemplate.querySelector(".element").cloneNode(true);
@@ -181,9 +182,9 @@ formEditProfile.addEventListener("submit", function (event) {
 addOpenEvents(popupNewPlace, buttonNewPlace, clearPopupNewPlace);
 
 const setProfileData = (name, about) => {
-    profileName.textContent = name;
-    profileAbout.textContent = about;
-  };
+  profileName.textContent = name;
+  profileAbout.textContent = about;
+};
 
 formNewPlace.addEventListener("submit", function (event) {
   event.preventDefault();
