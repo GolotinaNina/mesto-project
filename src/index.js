@@ -1,8 +1,5 @@
 import "./../pages/index.css";
-
-import {
-  enableValidation
-} from "./components/validation.js";
+import {enableValidation} from "./components/validation.js";
 
 import {
   getProfileData,

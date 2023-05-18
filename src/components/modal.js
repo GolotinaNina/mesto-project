@@ -1,18 +1,12 @@
-import {checkButtonIsValid, isValid} from './validation';
-import {postCard, profileName, profileAbout} from './data';
+import { checkButtonIsValid, isValid } from './validation';
+import { postCard, patchProfileData, profileName, profileAbout } from './data';
 
 const popupEditProfile = document.querySelector("#popup__edit_profile");
 const buttonEditProfile = document.querySelector("#profile__edit");
-const buttonCloseEditProfile = popupEditProfile.querySelector(
-  "button.popup__close"
-);
+const buttonCloseEditProfile = popupEditProfile.querySelector("button.popup__close");
 const formEditProfile = popupEditProfile.querySelector(".edit-form");
-const popupEditProfileName = popupEditProfile.querySelector(
-  '.edit-form__input[name="name"]'
-);
-const popupEditProfileAbout = popupEditProfile.querySelector(
-  '.edit-form__input[name="about"]'
-);
+const popupEditProfileName = popupEditProfile.querySelector('.edit-form__input[name="name"]');
+const popupEditProfileAbout = popupEditProfile.querySelector('.edit-form__input[name="about"]');
 
 const popupNewPlace = document.querySelector("#popup__new_place");
 const buttonNewPlace = document.querySelector("#element__add");
@@ -34,6 +28,8 @@ const pictureDecription = popupExpandPicture.querySelector(
   ".popup__description"
 );
 
+const modalsStack = [];
+
 const closePopupElements = [
   {
     popup: popupExpandPicture,
@@ -52,6 +48,21 @@ const closePopupElements = [
 document
   .querySelectorAll(".popup__container")
   .forEach((el) => el.addEventListener("click", (e) => e.stopPropagation()));
+
+document.onkeydown = function(evt) {
+    evt = evt || window.event;
+    var isEscape = false;
+    if ("key" in evt) {
+        isEscape = (evt.key === "Escape" || evt.key === "Esc");
+    } else {
+        isEscape = (evt.keyCode === 27);
+    }
+    if (isEscape) {
+        if(modalsStack.length > 0){
+          removeOpenClass(modalsStack.at(-1));
+        }
+    }
+};
 
 addOpenEvents(popupEditProfile, buttonEditProfile, updateProfilePopupValues);
 addOpenEvents(popupNewPlace, buttonNewPlace, clearPopupNewPlace);
@@ -88,12 +99,14 @@ export function addCloseEvents(popup, elClose) {
   });
 }
 
-export function removeOpenClass(el) {
+function removeOpenClass(el) {
   el.classList.remove("popup_opened");
+  modalsStack.slice(el);
 }
 
-export function addOpenClass(el) {
+function addOpenClass(el) {
   el.classList.add("popup_opened");
+  modalsStack.push(el);
 }
 
 export function openPopupImage(name, link, elPopupPicture) {
