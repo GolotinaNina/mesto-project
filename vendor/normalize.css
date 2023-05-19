@@ -348,3 +348,10 @@ template {
   display: none;
 }
 
+input:invalid {
+  border-bottom: 1px solid red;
+} 
+
+input:focus-visible{
+  outline: none;
+}
