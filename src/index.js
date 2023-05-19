@@ -26,4 +26,5 @@ enableValidation({
   inactiveButtonClass: "form__submit_inactive",
   inputErrorClass: "form__input_type_error",
   errorClass: "form__input-error_active",
+  custValNames: ["edit-new__name","edit_profile__name-input"]
 });

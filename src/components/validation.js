@@ -16,17 +16,32 @@ const hideInputError = (formElement, inputElement) => {
 
 export const isValid = (formElement, inputElement, el) => {
   if (!inputElement.validity.valid) {
-    showInputError(formElement,inputElement,inputElement.validationMessage);
-  } else if(typeof el !== "undefined" && customValid(el.data)){
-    showInputError(formElement,inputElement, 'Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы');
+    showInputError(formElement, inputElement, inputElement.validationMessage);
+  } else if (
+    typeof el !== "undefined" &&
+    typeof params.custValNames !== "undefined" &&
+    params.custValNames.includes(inputElement.id) &&
+    customValid(el.data)
+  ) {
+    showInputError(
+      formElement,
+      inputElement,
+      "Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"
+    );
   } else {
     hideInputError(formElement, inputElement, params);
   }
 };
 
-const customValid = (elChar) =>{
-  return elChar != null && !(/^([a-zA-ZА-Яа-я0-9]){1,1}$/.test(elChar) || [45,32].includes(elChar.charCodeAt(0)));
-}
+const customValid = (elChar) => {
+  return (
+    elChar != null &&
+    !(
+      /^([a-zA-ZА-Яа-я0-9]){1,1}$/.test(elChar) ||
+      [45, 32].includes(elChar.charCodeAt(0))
+    )
+  );
+};
 
 const toggleButtonState = (inputList, buttonElement) => {
   if (hasInvalidInput(inputList)) {
