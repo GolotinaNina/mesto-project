@@ -44,9 +44,6 @@
 @import url(../blocks/edit-form/__input/edit-form__input.css);
 @import url(../blocks/edit-form-error/edit-form-error.css);
 
-@import url(../blocks/form/form.css);
-@import url(../blocks/form/__submit_inactive);
-
 @import url(../blocks/edit-new/edit-new.css);
 @import url(../blocks/edit-new/__input/edit-new__input.css);
 @import url(../blocks/edit-new/__submit/edit-new__submit.css);
