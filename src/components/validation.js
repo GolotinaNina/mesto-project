@@ -15,6 +15,7 @@ const hideInputError = (formElement, inputElement) => {
 };
 
 export const isValid = (formElement, inputElement, el) => {
+  inputElement.setCustomValidity('');
   if (!inputElement.validity.valid) {
     showInputError(formElement, inputElement, inputElement.validationMessage);
   } else if (
@@ -23,10 +24,12 @@ export const isValid = (formElement, inputElement, el) => {
     params.custValNames.includes(inputElement.id) &&
     customValid(el.data)
   ) {
+    const custMessage = "Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы";
+    inputElement.setCustomValidity(custMessage);
     showInputError(
       formElement,
       inputElement,
-      "Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"
+      custMessage
     );
   } else {
     hideInputError(formElement, inputElement, params);

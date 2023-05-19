@@ -6,7 +6,7 @@
     font-size: 14px;
     line-height: 17px;
     border: none;
-    border-bottom: 1px solid #000000;
+    border-bottom: 1px solid rgba(0, 0, 0, .2);
     padding: 0 0 13px;
 }
 
@@ -18,14 +18,5 @@
     .edit-new__input:first-of-type {
         margin-top: 75px;
     } 
-}
-
-edit-new__input:valid {
-    border-bottom: 1px solid rgba(0, 0, 0, .2);
-} 
-
-
-.edit-new__input_type_error {
-    border-bottom-color: 1px solid  #FF0000;
 }
 

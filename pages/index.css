@@ -93,3 +93,15 @@
     color: #FF0000;
 }
 
+
+input:invalid {
+    border-bottom: 1px solid red;
+} 
+
+input:focus-visible{
+    outline: none;
+}
+
+.form__input_inactive {
+    background-color: #f1f1f1;
+}
