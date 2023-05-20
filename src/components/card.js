@@ -1,4 +1,4 @@
-import {addOpenEvents, popupExpandPicture, openPopupImage, popupPicture} from './modal';
+import {addOpenClass, popupExpandPicture, onOpenPopupImage, popupPicture} from './modal';
 import { setCount, deleteCard, putLike, deleteLike, personalData } from "./data";
 
 const userTemplate = document.querySelector("#elTemplate").content;
@@ -38,9 +38,11 @@ function getElement(el) {
     else putLike(el._id, counter, this);
   });
 
-  addOpenEvents(popupExpandPicture, photo, () =>
-    openPopupImage(el.name, el.link, popupPicture)
-  );
+  photo.addEventListener("click", function (event) {
+    event.stopPropagation();
+    addOpenClass(popupExpandPicture);
+    onOpenPopupImage(el.name, el.link, popupPicture);
+  });
 
   return userElement;
 }

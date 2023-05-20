@@ -10,6 +10,10 @@ import {
   addElement,
 } from "./components/card";
 
+document
+  .querySelectorAll(".popup__container")
+  .forEach((el) => el.addEventListener("click", (e) => e.stopPropagation()));
+
 getProfileData()
   .then(getInitialCards)
   .then((result) => {
