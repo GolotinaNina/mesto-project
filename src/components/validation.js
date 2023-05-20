@@ -14,36 +14,18 @@ const hideInputError = (formElement, inputElement) => {
   errorElement.textContent = "";
 };
 
-export const isValid = (formElement, inputElement, el) => {
-  inputElement.setCustomValidity('');
+export const isValid = (formElement, inputElement) => {
+  if (inputElement.validity.patternMismatch) {
+    inputElement.setCustomValidity(inputElement.dataset.errorMessage);
+  } else {
+    inputElement.setCustomValidity("");
+  }
+
   if (!inputElement.validity.valid) {
     showInputError(formElement, inputElement, inputElement.validationMessage);
-  } else if (
-    typeof el !== "undefined" &&
-    typeof params.custValNames !== "undefined" &&
-    params.custValNames.includes(inputElement.id) &&
-    customValid(el.data)
-  ) {
-    const custMessage = "Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы";
-    inputElement.setCustomValidity(custMessage);
-    showInputError(
-      formElement,
-      inputElement,
-      custMessage
-    );
   } else {
-    hideInputError(formElement, inputElement, params);
+    hideInputError(formElement, inputElement);
   }
-};
-
-const customValid = (elChar) => {
-  return (
-    elChar != null &&
-    !(
-      /^([a-zA-ZА-Яа-я0-9]){1,1}$/.test(elChar) ||
-      [45, 32].includes(elChar.charCodeAt(0))
-    )
-  );
 };
 
 const toggleButtonState = (inputList, buttonElement) => {
@@ -69,8 +51,8 @@ const setEventListeners = (formElement) => {
   const buttonElement = formElement.querySelector(params.submitButtonSelector);
 
   inputList.forEach((inputElement) => {
-    inputElement.addEventListener("input", (el) => {
-      isValid(formElement, inputElement, el);
+    inputElement.addEventListener("input", () => {
+      isValid(formElement, inputElement);
       toggleButtonState(inputList, buttonElement);
     });
   });

@@ -44,6 +44,8 @@
                         minlength="2" 
                         class="edit-form__input edit-form__input_type_name" 
                         placeholder="Имя" 
+                        pattern="^([a-zA-ZА-Яа-я0-9- ]*)$"
+                        data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"
                         required>
                     <span class="edit_profile__name-input-error edit-form-error">Необходимо заполнить данное поле</span>
                 </label>
@@ -77,6 +79,8 @@
                         minlength="2" 
                         class="edit-new__input edit-form__input_type_name"
                         placeholder="Название места" 
+                        pattern="^([a-zA-ZА-Яа-я0-9- ]*)$"
+                        data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"
                         required>
                     <span class="edit-new__name-error edit-form-error"></span>
                 </label>

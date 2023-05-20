@@ -108,6 +108,7 @@ function updateProfilePopupValues() {
   popupEditProfileAbout.value = profileAbout.textContent;
   isValid(formEditProfile, popupEditProfileName);
   isValid(formEditProfile, popupEditProfileAbout);
+  checkButtonIsValid(formEditProfile);
 };
 
 function clearPopupNewPlace() {
