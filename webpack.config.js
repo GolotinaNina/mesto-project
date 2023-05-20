@@ -47,7 +47,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./index.html", // путь к файлу index.html
+      template: "./src/index.html", // путь к файлу index.html
     }),
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin() // подключение плагина для объединения файлов
