@@ -1,4 +1,5 @@
 import { checkButtonIsValid, isValid } from './validation';
+//я не поняла, что вы тут от меня хотите! На мой взгляд, тут все по solid, dry, kiss (in: бритва окамы)
 import { postCard, patchProfileData, profileName, profileAbout } from './data';
 
 const popupEditProfile = document.querySelector("#popup__edit_profile");
