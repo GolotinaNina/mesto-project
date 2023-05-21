@@ -5,8 +5,8 @@ import {getElement, setCount} from "./components/card";
 import {addCloseEvents,addOpenClass,addOpenEvents,updateProfilePopupValues,clearPopupNewPlace, onOpenPopupImage, removeOpenClass} from "./components/modal";
 
 const avatar = new URL('./images/avatar.jpg', import.meta.url);
-const profile__avatar = document.querySelector('.profile__avatar');
-profile__avatar.setAttribute('src',avatar);
+const profileAvatar = document.querySelector('.profile__avatar');
+profileAvatar.setAttribute('src',avatar);
 
 const popupEditProfile = document.querySelector("#popup__edit_profile");
 const buttonEditProfile = document.querySelector("#profile__edit");
