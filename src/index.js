@@ -1,14 +1,11 @@
 import "./pages/index.css";
 import {enableValidation} from "./components/validation.js";
+import {getProfileData,getInitialCards} from "./components/api.js";
+import {addElement} from "./components/card";
 
-import {
-  getProfileData,
-  getInitialCards,
-} from "./components/api.js";
-
-import {
-  addElement,
-} from "./components/card";
+const avatar = new URL('./images/avatar.jpg', import.meta.url);
+const profile__avatar = document.querySelector('.profile__avatar');
+profile__avatar.setAttribute('src',avatar);
 
 document
   .querySelectorAll(".popup__container")
