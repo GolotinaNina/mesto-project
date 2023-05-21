@@ -8,7 +8,7 @@ export const closePopupByEsc = (evt) => {
     }
     if (isEscape) {
       evt.stopPropagation();
-      let el = document.querySelectorAll('.popup_opened');
+      let el = document.querySelector('.popup_opened');
       if (el != null){
         removeOpenClass(el);
       }
