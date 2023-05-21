@@ -4,7 +4,7 @@ import {enableValidation} from "./components/validation.js";
 import {
   getProfileData,
   getInitialCards,
-} from "./components/data.js";
+} from "./components/api.js";
 
 import {
   addElement,

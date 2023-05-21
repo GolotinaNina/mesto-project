@@ -1,5 +1,5 @@
 import {addOpenClass, popupExpandPicture, onOpenPopupImage, popupPicture} from './modal';
-import { setCount, deleteCard, putLike, deleteLike, personalData } from "./data";
+import { setCount, deleteCard, putLike, deleteLike, personalData } from "./api";
 
 const userTemplate = document.querySelector("#elTemplate").content;
 const elements = document.querySelector(".elements");
