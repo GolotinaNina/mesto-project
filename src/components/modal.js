@@ -8,9 +8,8 @@ export const closePopupByEsc = (evt) => {
     }
     if (isEscape) {
       evt.stopPropagation();
-      let el = Array.from(document.querySelectorAll('.popup')).find(pp => pp.classList.contains('popup_opened'));
+      let el = document.querySelectorAll('.popup_opened');
       if (el != null){
-        document.removeEventListener('keydown',(event) => closePopupByEsc(event));
         removeOpenClass(el);
       }
     }
@@ -33,6 +32,7 @@ export function addCloseEvents(popup, elClose) {
 
 export function removeOpenClass(el) {
   el.classList.remove("popup_opened");
+  document.removeEventListener('keydown',(event) => closePopupByEsc(event));
 };
 
 export function addOpenClass(el) {
