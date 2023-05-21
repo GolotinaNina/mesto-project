@@ -1,9 +1,3 @@
-import { addElement } from "./card";
-
-export const profile = document.querySelector(".profile");
-export const profileName = profile.querySelector(".profile__name");
-export const profileAbout = profile.querySelector(".profile__about");
-
 const config = {
   baseUrl: "https://nomoreparties.co/v1/plus-cohort-24",
   headers: {
@@ -12,7 +6,7 @@ const config = {
   },
 };
 
-export const getProfileData = () => {
+export const getProfileData = (setProfileData) => {
   return fetch(`${config.baseUrl}/users/me`, {
     headers: config.headers,
   })
@@ -25,7 +19,7 @@ export const getProfileData = () => {
 
 export let personalData = {};
 
-export const patchProfileData = (name, about) => {
+export const patchProfileData = (name, about, setProfileData) => {
   fetch(`${config.baseUrl}/users/me`, {
     method: "PATCH",
     headers: config.headers,
@@ -40,11 +34,11 @@ export const patchProfileData = (name, about) => {
       setProfileData(res.name, res.about);
     })
     .catch((err) => {
-      console.log(err); // выводим ошибку в консоль
+      console.log(err); 
     });
 };
 
-export const postCard = (name, link) => {
+export const postCard = (name, link, addElement) => {
   fetch(`${config.baseUrl}/cards`, {
     method: "POST",
     headers: config.headers,
@@ -69,16 +63,11 @@ export const deleteCard = (id, card) => {
       card.remove();
     })
     .catch((err) => {
-      console.log(err); // выводим ошибку в консоль
+      console.log(err); 
     });
 };
 
-export function setCount(counter, count) {
-  if (count > 0) counter.textContent = count;
-  else counter.textContent = "";
-}
-
-export const putLike = (id, counter, likeButton) => {
+export const putLike = (id, counter, likeButton, setCount) => {
   fetch(`${config.baseUrl}/cards/likes/${id}`, {
     method: "PUT",
     headers: config.headers,
@@ -89,11 +78,11 @@ export const putLike = (id, counter, likeButton) => {
       likeButton.classList.toggle("element__like-button_status");
     })
     .catch((err) => {
-      console.log(err); // выводим ошибку в консоль
+      console.log(err); 
     });
 };
 
-export const deleteLike = (id, counter, likeButton) => {
+export const deleteLike = (id, counter, likeButton, setCount) => {
   fetch(`${config.baseUrl}/cards/likes/${id}`, {
     method: "DELETE",
     headers: config.headers,
@@ -104,7 +93,7 @@ export const deleteLike = (id, counter, likeButton) => {
       likeButton.classList.toggle("element__like-button_status");
     })
     .catch((err) => {
-      console.log(err); // выводим ошибку в консоль
+      console.log(err); 
     });
 };
 
@@ -118,12 +107,5 @@ function getPromiseResult(res) {
   if (res.ok) {
     return res.json();
   }
-  // если ошибка, отклоняем промис
   return Promise.reject(`Ошибка: ${res.status}`);
 }
-
-const setProfileData = (name, about) => {
-  profileName.textContent = name;
-  profileAbout.textContent = about;
-};
-

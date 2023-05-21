@@ -8,4 +8,5 @@
     object-fit: cover;
     object-position: center;
     justify-content: center;
+    cursor: pointer;
 }

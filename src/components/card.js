@@ -1,14 +1,6 @@
-import {addOpenClass, popupExpandPicture, onOpenPopupImage, popupPicture} from './modal';
-import { setCount, deleteCard, putLike, deleteLike, personalData } from "./api";
-
 const userTemplate = document.querySelector("#elTemplate").content;
-const elements = document.querySelector(".elements");
 
-export function addElement(el) {
-  elements.prepend(getElement(el));
-}
-
-function getElement(el) {
+export function getElement(el, cbOnOpenPopupImage, isMyElement, cbDeleteCard, cbLike, isLiked) {
   const userElement = userTemplate.querySelector(".element").cloneNode(true);
   const delButton = userElement.querySelector(".element__delete");
   const photo = userElement.querySelector(".element__photo");
@@ -17,32 +9,32 @@ function getElement(el) {
 
   userElement.id = el._id;
 
-  if (el.owner._id != personalData._id) delButton.remove();
-  else
-    delButton.addEventListener("click", () => deleteCard(el._id, userElement));
+  if (!isMyElement(el)) delButton.remove();
+  else delButton.addEventListener("click", () => cbDeleteCard(el, userElement));
 
   photo.setAttribute("src", el.link);
   photo.setAttribute("alt", el.name);
   userElement.querySelector(".element__place-name").textContent = el.name;
 
-  if (el.likes.map((x) => x._id).includes(personalData._id))
+  if (isLiked(el))
     likeButton.classList.toggle("element__like-button_status");
 
   setCount(counter, el.likes.length);
 
   likeButton.addEventListener("click", function (event) {
     event.stopPropagation();
-
-    if (this.classList.contains("element__like-button_status"))
-      deleteLike(el._id, counter, this);
-    else putLike(el._id, counter, this);
+    cbLike(el, counter, this)
   });
 
   photo.addEventListener("click", function (event) {
     event.stopPropagation();
-    addOpenClass(popupExpandPicture);
-    onOpenPopupImage(el.name, el.link, popupPicture);
+    cbOnOpenPopupImage(el);
   });
 
   return userElement;
+}
+
+export function setCount(counter, count) {
+  if (count > 0) counter.textContent = count;
+  else counter.textContent = "";
 }
