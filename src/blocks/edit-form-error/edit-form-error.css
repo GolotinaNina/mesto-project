@@ -1,4 +1,6 @@
 .edit-form-error {
+    display: block;
+    height: 24px;
     font-family: 'Inter';
     font-style: normal;
     font-weight: 400;
