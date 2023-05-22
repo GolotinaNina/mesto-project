@@ -1,12 +1,39 @@
 .profile__avatar {
     display: block;
+    position: relative;
     margin: 0 25px 0 25px;
     width: 128px;
     height: 128px;
     border-radius: 100%;
-    aspect-ratio: 1/1;
     object-fit: cover;
     object-position: center;
     justify-content: center;
     cursor: pointer;
+    content: "";
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.profile__avatar::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    box-sizing: border-box;
+    padding: inherit;
+    background-clip: content-box;
+}
+
+.profile__avatar:hover {
+    transition: all .8s linear;
+    opacity: 0.8;
+    background: rgba(0, 0, 0, 0.8);
 }

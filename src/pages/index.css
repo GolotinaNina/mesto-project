@@ -58,3 +58,24 @@
 @import url(../blocks/edit-delete/__title/edit-delete__title.css);
 @import url(../blocks/edit-delete/__submit/edit-delete__submit.css);
 
+.profile__vektor {
+    background: url(../images/pen.svg)no-repeat;
+    color: #FFFFFF;
+    height: 26px;
+    width: 26px;
+    position: absolute;
+    left: 85px;
+    margin: 0;
+    padding: 0;
+    border: none;
+    z-index: 2;
+    cursor: pointer;
+    background-size: 100%;
+    display: none;
+}
+
+.profile__vektor:hover {
+    display: block;
+    transition: all .8s linear;
+    opacity: .6;
+}
