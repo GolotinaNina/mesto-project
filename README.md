@@ -28,4 +28,4 @@ JavaScript
 Не забудьте [оптимизировать картинки](https://tinypng.com/), чтобы ваш сайт загружался быстрее.
 
 
-https://golotinanina.github.io/mesto-project/
+https://github.com/GolotinaNina/mesto-project.git
