@@ -27,6 +27,10 @@
   \********************************************************************************************************************************************************/
 .profile{align-items:center;color:#fff;display:flex;flex-direction:row;justify-content:flex-start;margin:0 auto;padding:36px 0 0;width:880px}@media screen and (max-width:950px){.profile{width:100%}}@media screen and (max-width:768px){.profile{flex-direction:column;justify-content:center;margin:38px 0 0}}@media screen and (max-width:450px){.profile{width:100%}}
 /*!*************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[2].use[1]!./node_modules/postcss-loader/dist/cjs.js!./src/blocks/profile/__vektor/profile__vektor.css ***!
+  \*************************************************************************************************************************************************************************/
+.profile__vektor{background:url(6c7bf05444b9793fdf6e.svg)no-repeat;background-size:100%;border:none;color:#fff;cursor:pointer;display:none;height:26px;left:85px;margin:0;padding:0;position:absolute;width:26px}.profile__vektor.show{display:block;transition:all .15s linear}
+/*!*************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[2].use[1]!./node_modules/postcss-loader/dist/cjs.js!./src/blocks/profile/__avatar/profile__avatar.css ***!
   \*************************************************************************************************************************************************************************/
 .profile__avatar{align-items:center;border-radius:100%;content:"";cursor:pointer;display:block;display:flex;flex-direction:column;height:128px;justify-content:center;margin:0 25px;-o-object-fit:cover;object-fit:cover;-o-object-position:center;object-position:center;position:relative;width:128px}.profile__avatar:hover{background:rgba(0,0,0,.8);opacity:.2;transition:all .15s linear}
@@ -197,4 +201,4 @@
 /*!*********************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[2].use[1]!./node_modules/postcss-loader/dist/cjs.js!./src/pages/index.css ***!
   \*********************************************************************************************************************************************/
-.profile__vektor{background:url(6c7bf05444b9793fdf6e.svg)no-repeat;background-size:100%;border:none;color:#fff;cursor:pointer;display:none;height:26px;left:85px;margin:0;padding:0;position:absolute;width:26px}.profile__vektor.show{display:block;transition:all .15s linear}
+
