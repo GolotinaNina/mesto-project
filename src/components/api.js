@@ -6,7 +6,7 @@ const config = {
   },
 };
 
-export const getProfileData = (setProfileData) => {
+export const getProfileData = (setProfileData, cbUpdateAvLink) => {
   return fetch(`${config.baseUrl}/users/me`, {
     headers: config.headers,
   })
@@ -14,6 +14,7 @@ export const getProfileData = (setProfileData) => {
     .then((res) => {
       personalData = res;
       setProfileData(res.name, res.about);
+      cbUpdateAvLink(res.avatar);
     });
 };
 
@@ -32,6 +33,23 @@ export const patchProfileData = (name, about, setProfileData) => {
     .then((res) => {
       personalData = res;
       setProfileData(res.name, res.about);
+    })
+    .catch((err) => {
+      console.log(err); 
+    });
+};
+
+export const patchAvatar = (avLink, cbUpdateAvLink) => {
+  fetch(`${config.baseUrl}/users/me/avatar`, {
+    method: "PATCH",
+    headers: config.headers,
+    body: JSON.stringify({
+      avatar: avLink,
+    }),
+  })
+    .then(getPromiseResult)
+    .then(() => {
+      cbUpdateAvLink(avLink);
     })
     .catch((err) => {
       console.log(err); 

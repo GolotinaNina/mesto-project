@@ -104,8 +104,11 @@
             <button type="button" class="popup__close"></button>
             <form name="form1" class="edit-avatar" novalidate>
                 <h2 class="edit-avatar__title">Обновить аватар</h2>
-                <input id="edit-avatar__url" name="link" type="url" class="edit-avatar__input"
-                    placeholder="Ссылка на картинку" required>
+                <label class="form__field">
+                    <input id="edit-avatar__url" name="link" type="url" class="edit-avatar__input"
+                        placeholder="Ссылка на картинку" required>
+                    <span class="edit-avatar__url-error edit-form-error"></span>
+                </label>
                 <button type="submit" class="edit-avatar__submit">Сохранить</button>
             </form>
         </div>

@@ -15,12 +15,12 @@ export const closePopupByEsc = (evt) => {
     }
 };
 
-export function addOpenEvents(popup, elOpen, action) {
+export function addOpenEvents(popup, elOpen, callback) {
   document.addEventListener('keydown',(event) => closePopupByEsc(event));
   elOpen.addEventListener("click", function (event) {
     event.stopPropagation();
     addOpenClass(popup);
-    if (action != null) action();
+    if (callback != null) callback();
   });
 };
 
@@ -46,12 +46,7 @@ export function onOpenPopupImage(name, link, elPopupPicture, cbUpdateDescription
   cbUpdateDescription(name);
 };
 
-export function updateProfilePopupValues(cbUpdateProfileValues,cbCheckFormIsValid) {
-  cbUpdateProfileValues();
+export function updatePopupValues(cbUpdateValues,cbCheckFormIsValid) {
+  cbUpdateValues();
   cbCheckFormIsValid();
-};
-
-export function clearPopupNewPlace(cbUpdatePopupNewPlace, cbCheckButtonIsValid ) {
-  cbUpdatePopupNewPlace();
-  cbCheckButtonIsValid();
 };

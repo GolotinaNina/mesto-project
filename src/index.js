@@ -1,12 +1,14 @@
 import "./pages/index.css";
 import {enableValidation,isValid,checkButtonIsValid} from "./components/validation.js";
-import {getProfileData,getInitialCards,patchProfileData,personalData, deleteLike, putLike, postCard, deleteCard} from "./components/api.js";
+import {getProfileData, getInitialCards, patchProfileData, personalData, deleteLike, putLike, postCard, deleteCard} from "./components/api.js";
 import {getElement, setCount} from "./components/card";
-import {addCloseEvents,addOpenClass,addOpenEvents,updateProfilePopupValues,clearPopupNewPlace, onOpenPopupImage, removeOpenClass} from "./components/modal";
+import {addCloseEvents,addOpenClass,addOpenEvents,updatePopupValues, onOpenPopupImage, removeOpenClass} from "./components/modal";
 
-const avatar = new URL('./images/avatar.jpg', import.meta.url);
 const profileAvatar = document.querySelector('.profile__avatar');
-profileAvatar.setAttribute('src',avatar);
+const popupEditAvatar = document.querySelector('#popup__edit_avatar');
+const formPopupEditAvatar = popupEditAvatar.querySelector('.edit-avatar');
+const popupEditAvatarLink = popupEditAvatar.querySelector('#edit-avatar__url');
+const buttonCloseAvatar = popupEditAvatar.querySelector("button.popup__close");
 
 const popupEditProfile = document.querySelector("#popup__edit_profile");
 const buttonEditProfile = document.querySelector("#profile__edit");
@@ -44,33 +46,63 @@ const closePopupElements = [
     popup: popupNewPlace,
     button: buttonCloseNewPlace,
   },
+  {
+    popup: popupEditAvatar,
+    button: buttonCloseAvatar,
+  },
 ];
 
-const elements = document.querySelector(".elements");
+closePopupElements.forEach((el) => {
+  addCloseEvents(el.popup, el.button);
+  addCloseEvents(el.popup, el.popup);
+});
 
-function addElement(el) {
-  elements.prepend(getElement(el, cbOnOpenPopupImage, isMyElement, cbDeleteCard, cbLike, isLiked));
-}
-
-const cbUpdateProfileValues = () => {
+const cbUpdatePopupEditProfile = () => {
   popupEditProfileName.value = profileName.textContent;
   popupEditProfileAbout.value = profileAbout.textContent;
 }
 
-const cbCheckFormIsValid = () => {
-  isValid(formEditProfile, popupEditProfileName);
-  isValid(formEditProfile, popupEditProfileAbout);
-  checkButtonIsValid(formEditProfile);
+const cbUpdatePopupNewPlace = () => {
+  popupNewPlaceName.value = "";
+  popupNewPlaceLink.value = "";
 }
 
 const cbUpdateDescription = (name) => {
   pictureDecription.textContent = name;
 }
 
+const cbUpdatePopupEditAvatar =() => {
+  popupEditAvatarLink.value = profileAvatar.getAttribute('src');
+}
+
+const cbCheckFormIsValid = (form) => {
+  Array.from(form.querySelectorAll('input')).forEach((input) => {
+    isValid(form, input);  
+  })
+  checkButtonIsValid(form);
+}
+
 const setProfileData = (name, about) => {
   profileName.textContent = name;
   profileAbout.textContent = about;
 };
+
+const cbCheckButtonIsValid = () => checkButtonIsValid(formNewPlace)
+
+addOpenEvents(popupEditAvatar, profileAvatar, () => updatePopupValues(cbUpdatePopupEditAvatar, () => cbCheckFormIsValid(formPopupEditAvatar)));
+addOpenEvents(popupEditProfile, buttonEditProfile, () => updatePopupValues(cbUpdatePopupEditProfile, () => cbCheckFormIsValid(formEditProfile)));
+addOpenEvents(popupNewPlace, buttonNewPlace, () => updatePopupValues(cbUpdatePopupNewPlace, cbCheckButtonIsValid ));
+
+const cbUpdateAvLink = (avLink) =>{
+  if (avLink != null)
+    profileAvatar.setAttribute('src', avLink);
+}
+
+function addElement(el) {
+  elements.prepend(getElement(el, cbOnOpenPopupImage, isMyElement, cbDeleteCard, cbLike, isLiked));
+}
+
+const elements = document.querySelector(".elements");
 
 const cbOnOpenPopupImage = (el) => {
   addOpenClass(popupExpandPicture);
@@ -90,21 +122,6 @@ const cbLike = (el, counter, likeButton) => {
     putLike(el._id, counter, likeButton, setCount);
 }
 
-const cbUpdatePopupNewPlace = () => {
-  popupNewPlaceName.value = "";
-  popupNewPlaceLink.value = "";
-}
-
-const cbCheckButtonIsValid = () => checkButtonIsValid(formNewPlace)
-
-addOpenEvents(popupEditProfile, buttonEditProfile, () => updateProfilePopupValues(cbUpdateProfileValues,cbCheckFormIsValid));
-addOpenEvents(popupNewPlace, buttonNewPlace, () => clearPopupNewPlace(cbUpdatePopupNewPlace, cbCheckButtonIsValid ));
-
-closePopupElements.forEach((el) => {
-  addCloseEvents(el.popup, el.button);
-  addCloseEvents(el.popup, el.popup);
-});
-
 formEditProfile.addEventListener("submit", function (event) {
   patchProfileData(popupEditProfileName.value, popupEditProfileAbout.value, setProfileData);
   event.preventDefault();
@@ -117,11 +134,17 @@ formNewPlace.addEventListener("submit", function (event) {
   removeOpenClass(popupNewPlace);
 });
 
+formPopupEditAvatar.addEventListener("submit", (event) =>{
+  event.preventDefault();
+  patchAvatar(popupEditAvatarLink, cbUpdateAvLink);
+  removeOpenClass(popupEditAvatar);
+});
+
 document
   .querySelectorAll(".popup__container")
   .forEach((el) => el.addEventListener("click", (e) => e.stopPropagation()));
 
-getProfileData(setProfileData)
+getProfileData(setProfileData, cbUpdateAvLink)
   .then(getInitialCards)
   .then((result) => {
     result.forEach((el) => addElement(el));
