@@ -1,14 +1,19 @@
 import "./pages/index.css";
 import {enableValidation,isValid,checkButtonIsValid} from "./components/validation.js";
-import {getProfileData, getInitialCards, patchProfileData, personalData, deleteLike, putLike, postCard, deleteCard} from "./components/api.js";
+import {getProfileData, getInitialCards, patchProfileData, personalData, deleteLike, putLike, postCard, deleteCard, patchAvatar} from "./components/api.js";
 import {getElement, setCount} from "./components/card";
 import {addCloseEvents,addOpenClass,addOpenEvents,updatePopupValues, onOpenPopupImage, removeOpenClass} from "./components/modal";
 
-const profileAvatar = document.querySelector('.profile__avatar');
+const profile = document.querySelector(".profile");
+const profileName = profile.querySelector(".profile__name");
+const profileAbout = profile.querySelector(".profile__about");
+const profileAvatar = profile.querySelector('.profile__avatar');
 const popupEditAvatar = document.querySelector('#popup__edit_avatar');
 const formPopupEditAvatar = popupEditAvatar.querySelector('.edit-avatar');
 const popupEditAvatarLink = popupEditAvatar.querySelector('#edit-avatar__url');
 const buttonCloseAvatar = popupEditAvatar.querySelector("button.popup__close");
+const buttonEditAvatar = popupEditAvatar.querySelector('.edit-avatar__submit');
+const profileVecktor = profile.querySelector('.profile__vektor');
 
 const popupEditProfile = document.querySelector("#popup__edit_profile");
 const buttonEditProfile = document.querySelector("#profile__edit");
@@ -29,9 +34,7 @@ const buttonCloseExpandPicture = popupExpandPicture.querySelector("button.popup_
 const popupPicture = popupExpandPicture.querySelector(".popup__picture");
 const pictureDecription = popupExpandPicture.querySelector(".popup__description");
 
-const profile = document.querySelector(".profile");
-const profileName = profile.querySelector(".profile__name");
-const profileAbout = profile.querySelector(".profile__about");
+
 
 const closePopupElements = [
   {
@@ -71,7 +74,7 @@ const cbUpdateDescription = (name) => {
   pictureDecription.textContent = name;
 }
 
-const cbUpdatePopupEditAvatar =() => {
+const cbUpdatePopupEditAvatar = () => {
   popupEditAvatarLink.value = profileAvatar.getAttribute('src');
 }
 
@@ -86,6 +89,14 @@ const setProfileData = (name, about) => {
   profileName.textContent = name;
   profileAbout.textContent = about;
 };
+
+profileAvatar.addEventListener('mouseover',function() {
+  profileVecktor.classList.add('show');
+});
+
+profileAvatar.addEventListener('mouseout',function() {
+  profileVecktor.classList.remove('show');
+});
 
 const cbCheckButtonIsValid = () => checkButtonIsValid(formNewPlace)
 
@@ -122,23 +133,44 @@ const cbLike = (el, counter, likeButton) => {
     putLike(el._id, counter, likeButton, setCount);
 }
 
-formEditProfile.addEventListener("submit", function (event) {
-  patchProfileData(popupEditProfileName.value, popupEditProfileAbout.value, setProfileData);
-  event.preventDefault();
-  removeOpenClass(popupEditProfile);
-});
+const setButtont = (button) => {
+  
+}
 
-formNewPlace.addEventListener("submit", function (event) {
-  event.preventDefault();
-  postCard(popupNewPlaceName.value, popupNewPlaceLink.value, addElement);
-  removeOpenClass(popupNewPlace);
-});
+const forms = [
+  {
+    form: formEditProfile,
+    popup: popupEditProfile,
+    button: buttonCloseEditProfile,
+    submitAction: () => patchProfileData(popupEditProfileName.value, popupEditProfileAbout.value, setProfileData)
+  },
+  {
+    form: formNewPlace,
+    popup: popupNewPlace,
+    button: buttonNewPlace,
+    submitAction: () => postCard(popupNewPlaceName.value, popupNewPlaceLink.value, addElement)
+  },
+  {
+    form: formPopupEditAvatar,
+    popup: popupEditAvatar,
+    button: buttonEditAvatar,
+    submitAction: () => patchAvatar(popupEditAvatarLink.value, cbUpdateAvLink)
+  }
+]
 
-formPopupEditAvatar.addEventListener("submit", (event) =>{
-  event.preventDefault();
-  patchAvatar(popupEditAvatarLink, cbUpdateAvLink);
-  removeOpenClass(popupEditAvatar);
-});
+forms.forEach((el) => {
+  el.form.addEventListener("submit", function (event) {
+    let buttonText = el.button.textContent;
+    try{
+      el.button.textContent = "Сохранение...";
+      el.submitAction();
+      event.preventDefault();
+      removeOpenClass(el.popup);
+    } finally{
+      el.button.textContent = buttonText;
+    }
+  });
+})
 
 document
   .querySelectorAll(".popup__container")

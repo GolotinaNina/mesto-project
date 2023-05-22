@@ -68,14 +68,12 @@
     margin: 0;
     padding: 0;
     border: none;
-    z-index: 2;
     cursor: pointer;
     background-size: 100%;
     display: none;
 }
 
-.profile__vektor:hover {
+.profile__vektor.show {
     display: block;
-    transition: all .8s linear;
-    opacity: .6;
+    transition: all .15s linear;
 }
