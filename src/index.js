@@ -133,10 +133,6 @@ const cbLike = (el, counter, likeButton) => {
     putLike(el._id, counter, likeButton, setCount);
 }
 
-const setButtont = (button) => {
-  
-}
-
 const forms = [
   {
     form: formEditProfile,
