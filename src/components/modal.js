@@ -35,7 +35,7 @@ export function removeOpenClass(el) {
 };
 
 export function addOpenClass(el) {
-  document.addEventListener('keydown',(event) => closePopupByEsc(event));
+  document.addEventListener('keydown',closePopupByEsc);
   el.classList.add("popup_opened");
 };
 
