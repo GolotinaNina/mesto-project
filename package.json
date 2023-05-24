@@ -22,12 +22,12 @@
     "postcss-loader": "^7.3.0",
     "webpack": "^5.82.1",
     "webpack-cli": "^5.1.1",
-    "webpack-dev-server": "^4.15.0"
+    "webpack-dev-server": "^4.15.0",
+    "gh-pages": "^5.0.0",
+    "clean-webpack-plugin": "^4.0.0",
+    "rm": "^0.1.8"
   },
   "dependencies": {
-    "clean-webpack-plugin": "^4.0.0",
-    "core-js": "^3.30.2",
-    "gh-pages": "^5.0.0",
-    "rm": "^0.1.8"
+    "core-js": "^3.30.2"
   }
 }

@@ -9,8 +9,12 @@
     color: #FF0000;
 }
 
-
 .form__field {
     display: flex;
     flex-direction: column;
+}
+
+.form__submit_inactive {
+    background-color: #f1f1f1 !important;
+    cursor: default;
 }

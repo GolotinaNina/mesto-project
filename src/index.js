@@ -1,8 +1,8 @@
 import "./pages/index.css";
 import {enableValidation,isValid,checkButtonIsValid} from "./components/validation.js";
-import {getProfileData, getInitialCards, patchProfileData, personalData, deleteLike, putLike, postCard, deleteCard, patchAvatar} from "./components/api.js";
-import {getElement, setCount} from "./components/card";
-import {addCloseEvents,addOpenClass,addOpenEvents,updatePopupValues, onOpenPopupImage, removeOpenClass} from "./components/modal";
+import {getProfileData, getInitialCards, patchProfileData , deleteLike, putLike, postCard, deleteCard, patchAvatar} from "./components/api.js";
+import {createCard, setCount} from "./components/card";
+import {addCloseEvents,openPopup,addOpenEvents, closePopup} from "./components/modal";
 
 const profile = document.querySelector(".profile");
 const profileName = profile.querySelector(".profile__name");
@@ -34,7 +34,19 @@ const buttonCloseExpandPicture = popupExpandPicture.querySelector("button.popup_
 const popupPicture = popupExpandPicture.querySelector(".popup__picture");
 const pictureDecription = popupExpandPicture.querySelector(".popup__description");
 
+let personalData = {};
 
+const validationConfig = {
+  formSelector: "form",
+  inputSelector: "input",
+  submitButtonSelector: 'button[type="submit"]',
+  inactiveButtonClass: "form__submit_inactive",
+  inputErrorClass: "form__input_type_error",
+  errorClass: "form__input-error_active",
+  // custValNames: ["edit-new__name","edit_profile__name-input"]
+};
+
+enableValidation(validationConfig);
 
 const closePopupElements = [
   {
@@ -70,7 +82,7 @@ const cbUpdatePopupNewPlace = () => {
   popupNewPlaceLink.value = "";
 }
 
-const cbUpdateDescription = (name) => {
+const updateDescription = (name) => {
   pictureDecription.textContent = name;
 }
 
@@ -78,11 +90,11 @@ const cbUpdatePopupEditAvatar = () => {
   popupEditAvatarLink.value = profileAvatar.getAttribute('src');
 }
 
-const cbCheckFormIsValid = (form) => {
+const checkFormIsValid = (form) => {
   Array.from(form.querySelectorAll('input')).forEach((input) => {
-    isValid(form, input);  
+    isValid(form, input, validationConfig);  
   })
-  checkButtonIsValid(form);
+  checkButtonIsValid(form, validationConfig);
 }
 
 const setProfileData = (name, about) => {
@@ -98,39 +110,111 @@ profileAvatar.addEventListener('mouseout',function() {
   profileVecktor.classList.remove('show');
 });
 
-const cbCheckButtonIsValid = () => checkButtonIsValid(formNewPlace)
+const cbCheckButtonIsValid = () => checkButtonIsValid(formNewPlace, validationConfig)
 
-addOpenEvents(popupEditAvatar, profileAvatar, () => updatePopupValues(cbUpdatePopupEditAvatar, () => cbCheckFormIsValid(formPopupEditAvatar)));
-addOpenEvents(popupEditProfile, buttonEditProfile, () => updatePopupValues(cbUpdatePopupEditProfile, () => cbCheckFormIsValid(formEditProfile)));
+addOpenEvents(popupEditAvatar, profileAvatar, () => updatePopupValues(cbUpdatePopupEditAvatar, () => checkFormIsValid(formPopupEditAvatar)));
+addOpenEvents(popupEditProfile, buttonEditProfile, () => updatePopupValues(cbUpdatePopupEditProfile, () => checkFormIsValid(formEditProfile)));
 addOpenEvents(popupNewPlace, buttonNewPlace, () => updatePopupValues(cbUpdatePopupNewPlace, cbCheckButtonIsValid ));
 
-const cbUpdateAvLink = (avLink) =>{
+const updateAvLink = (avLink) =>{
   if (avLink != null)
     profileAvatar.setAttribute('src', avLink);
 }
 
-function addElement(el) {
-  elements.prepend(getElement(el, cbOnOpenPopupImage, isMyElement, cbDeleteCard, cbLike, isLiked));
+function addCardToContainer(el) {
+  elements.prepend(createCard(el, cbOnOpenPopupImage, isMyElement, cbDeleteCard, cbLike, isLiked));
 }
 
 const elements = document.querySelector(".elements");
 
 const cbOnOpenPopupImage = (el) => {
-  addOpenClass(popupExpandPicture);
-  onOpenPopupImage(el.name, el.link, popupPicture, cbUpdateDescription);
+  openPopup(popupExpandPicture);
+  onOpenPopupImage(el.name, el.link, popupPicture, updateDescription);
 }
 
 const isMyElement = (el) => el.owner._id == personalData._id
 
-const cbDeleteCard = (el, userElement) => deleteCard(el._id, userElement);
-
-const isLiked = (el) => el.likes.map((x) => x._id).includes(personalData._id);
+const cbDeleteCard = (el, card) => {
+  deleteCard(el._id)
+  .then(() => {
+    card.remove();
+  })
+  .catch((err) => {
+    console.log(err); 
+  });
+};
 
 const cbLike = (el, counter, likeButton) => {
   if (likeButton.classList.contains("element__like-button_status"))
-    deleteLike(el._id, counter, likeButton, setCount);
+  unlike(el._id, counter, likeButton, setCount);
   else 
-    putLike(el._id, counter, likeButton, setCount);
+    like(el._id, counter, likeButton, setCount);
+}
+const unlike = (id, counter, likeButton, setCount) => {
+  deleteLike(id)
+  .then((res) => {
+    setCount(counter, res.likes.length);
+    likeButton.classList.toggle("element__like-button_status");
+  })
+  .catch((err) => {
+    console.log(err); 
+  });
+}
+
+const like = (id, counter, likeButton, setCount) => {
+  putLike(id)
+  .then((res) => {
+    setCount(counter, res.likes.length);
+    likeButton.classList.toggle("element__like-button_status");
+  })
+  .catch((err) => {
+    console.log(err); 
+  });
+}
+
+const isLiked = (el) => el.likes.map((x) => x._id).includes(personalData._id);
+
+function onOpenPopupImage(name, link, elPopupPicture) {
+  elPopupPicture.setAttribute("src", link);
+  elPopupPicture.setAttribute("alt", name);
+
+  updateDescription(name);
+};
+
+function updatePopupValues(cbUpdateValues,checkFormIsValid) {
+  cbUpdateValues();
+  checkFormIsValid();
+};
+
+const saveProfileData = () =>{
+  patchProfileData(popupEditProfileName.value, popupEditProfileAbout.value)
+  .then((res) => {
+    personalData = res;
+    setProfileData(res.name, res.about);
+  })
+  .catch((err) => {
+    console.log(err); 
+  });
+}
+
+const saveAvatar = () => {
+  patchAvatar(popupEditAvatarLink.value)
+  .then(() => {
+    updateAvLink(avLink);
+  })
+  .catch((err) => {
+    console.log(err); 
+  });
+}
+
+const addCard = () => {
+  postCard(popupNewPlaceName.value, popupNewPlaceLink.value)
+  .then((el) => {
+    addCardToContainer(el);
+  })
+  .catch((err) => {
+    console.log(err); 
+  });
 }
 
 const forms = [
@@ -138,19 +222,19 @@ const forms = [
     form: formEditProfile,
     popup: popupEditProfile,
     button: buttonCloseEditProfile,
-    submitAction: () => patchProfileData(popupEditProfileName.value, popupEditProfileAbout.value, setProfileData)
+    submitAction: saveProfileData
   },
   {
     form: formNewPlace,
     popup: popupNewPlace,
     button: buttonNewPlace,
-    submitAction: () => postCard(popupNewPlaceName.value, popupNewPlaceLink.value, addElement)
+    submitAction: addCard
   },
   {
     form: formPopupEditAvatar,
     popup: popupEditAvatar,
     button: buttonEditAvatar,
-    submitAction: () => patchAvatar(popupEditAvatarLink.value, cbUpdateAvLink)
+    submitAction: saveAvatar 
   }
 ]
 
@@ -161,7 +245,7 @@ forms.forEach((el) => {
       el.button.textContent = "Сохранение...";
       el.submitAction();
       event.preventDefault();
-      removeOpenClass(el.popup);
+      closePopup(el.popup);
     } finally{
       el.button.textContent = buttonText;
     }
@@ -172,21 +256,17 @@ document
   .querySelectorAll(".popup__container")
   .forEach((el) => el.addEventListener("click", (e) => e.stopPropagation()));
 
-getProfileData(setProfileData, cbUpdateAvLink)
+getProfileData()
+  .then((res) => {
+    personalData = res;
+    setProfileData(res.name, res.about);
+    updateAvLink(res.avatar);
+  })
   .then(getInitialCards)
   .then((result) => {
-    result.forEach((el) => addElement(el));
+    result.reverse().forEach((el) => addCardToContainer(el));
   })
   .catch((err) => {
     console.log(err); // выводим ошибку в консоль
   });
 
-enableValidation({
-  formSelector: "form",
-  inputSelector: "input",
-  submitButtonSelector: 'button[type="submit"]',
-  inactiveButtonClass: "form__submit_inactive",
-  inputErrorClass: "form__input_type_error",
-  errorClass: "form__input-error_active",
-  custValNames: ["edit-new__name","edit_profile__name-input"]
-});

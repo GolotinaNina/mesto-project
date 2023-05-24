@@ -6,21 +6,14 @@ const config = {
   },
 };
 
-export const getProfileData = (setProfileData, cbUpdateAvLink) => {
+export const getProfileData = () => {
   return fetch(`${config.baseUrl}/users/me`, {
     headers: config.headers,
   })
     .then(getPromiseResult)
-    .then((res) => {
-      personalData = res;
-      setProfileData(res.name, res.about);
-      cbUpdateAvLink(res.avatar);
-    });
 };
 
-export let personalData = {};
-
-export const patchProfileData = (name, about, setProfileData) => {
+export const patchProfileData = (name, about) => {
   fetch(`${config.baseUrl}/users/me`, {
     method: "PATCH",
     headers: config.headers,
@@ -28,35 +21,20 @@ export const patchProfileData = (name, about, setProfileData) => {
       name: name,
       about: about,
     }),
-  })
-    .then(getPromiseResult)
-    .then((res) => {
-      personalData = res;
-      setProfileData(res.name, res.about);
-    })
-    .catch((err) => {
-      console.log(err); 
-    });
+  }).then(getPromiseResult)
 };
 
-export const patchAvatar = (avLink, cbUpdateAvLink) => {
+export const patchAvatar = (avLink) => {
   fetch(`${config.baseUrl}/users/me/avatar`, {
     method: "PATCH",
     headers: config.headers,
     body: JSON.stringify({
       avatar: avLink,
     }),
-  })
-    .then(getPromiseResult)
-    .then(() => {
-      cbUpdateAvLink(avLink);
-    })
-    .catch((err) => {
-      console.log(err); 
-    });
+  }).then(getPromiseResult)
 };
 
-export const postCard = (name, link, addElement) => {
+export const postCard = (name, link) => {
   fetch(`${config.baseUrl}/cards`, {
     method: "POST",
     headers: config.headers,
@@ -64,55 +42,29 @@ export const postCard = (name, link, addElement) => {
       name: name,
       link: link,
     }),
-  })
-    .then(getPromiseResult)
-    .then((el) => {
-      addElement(el);
-    });
+  }).then(getPromiseResult)
 };
 
-export const deleteCard = (id, card) => {
+export const deleteCard = (id) => {
   fetch(`${config.baseUrl}/cards/${id}`, {
     method: "DELETE",
     headers: config.headers,
-  })
-    .then(getPromiseResult)
-    .then(() => {
-      card.remove();
-    })
-    .catch((err) => {
-      console.log(err); 
-    });
+  }).then(getPromiseResult)
 };
 
-export const putLike = (id, counter, likeButton, setCount) => {
+export const putLike = (id) => {
   fetch(`${config.baseUrl}/cards/likes/${id}`, {
     method: "PUT",
     headers: config.headers,
   })
     .then(getPromiseResult)
-    .then((res) => {
-      setCount(counter, res.likes.length);
-      likeButton.classList.toggle("element__like-button_status");
-    })
-    .catch((err) => {
-      console.log(err); 
-    });
 };
 
-export const deleteLike = (id, counter, likeButton, setCount) => {
+export const deleteLike = (id) => {
   fetch(`${config.baseUrl}/cards/likes/${id}`, {
     method: "DELETE",
     headers: config.headers,
-  })
-    .then(getPromiseResult)
-    .then((res) => {
-      setCount(counter, res.likes.length);
-      likeButton.classList.toggle("element__like-button_status");
-    })
-    .catch((err) => {
-      console.log(err); 
-    });
+  }).then(getPromiseResult)
 };
 
 export const getInitialCards = () => {
