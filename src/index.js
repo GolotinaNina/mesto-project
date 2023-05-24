@@ -200,7 +200,7 @@ const saveProfileData = () =>{
 const saveAvatar = () => {
   patchAvatar(popupEditAvatarLink.value)
   .then(() => {
-    updateAvLink(avLink);
+    updateAvLink(popupEditAvatarLink.value);
   })
   .catch((err) => {
     console.log(err); 
@@ -269,4 +269,3 @@ getProfileData()
   .catch((err) => {
     console.log(err); // выводим ошибку в консоль
   });
-

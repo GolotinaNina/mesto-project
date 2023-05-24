@@ -6,14 +6,12 @@ const config = {
   },
 };
 
-export const getProfileData = () => {
-  return fetch(`${config.baseUrl}/users/me`, {
+export const getProfileData = () => 
+  fetch(`${config.baseUrl}/users/me`, {
     headers: config.headers,
-  })
-    .then(getPromiseResult)
-};
+  }).then(getPromiseResult);
 
-export const patchProfileData = (name, about) => {
+export const patchProfileData = (name, about) => 
   fetch(`${config.baseUrl}/users/me`, {
     method: "PATCH",
     headers: config.headers,
@@ -21,20 +19,18 @@ export const patchProfileData = (name, about) => {
       name: name,
       about: about,
     }),
-  }).then(getPromiseResult)
-};
+  }).then(getPromiseResult);
 
-export const patchAvatar = (avLink) => {
+export const patchAvatar = (avLink) => 
   fetch(`${config.baseUrl}/users/me/avatar`, {
     method: "PATCH",
     headers: config.headers,
     body: JSON.stringify({
       avatar: avLink,
     }),
-  }).then(getPromiseResult)
-};
+  }).then(getPromiseResult);
 
-export const postCard = (name, link) => {
+export const postCard = (name, link) => 
   fetch(`${config.baseUrl}/cards`, {
     method: "POST",
     headers: config.headers,
@@ -42,36 +38,31 @@ export const postCard = (name, link) => {
       name: name,
       link: link,
     }),
-  }).then(getPromiseResult)
-};
+  }).then(getPromiseResult);
 
-export const deleteCard = (id) => {
+export const deleteCard = (id) => 
   fetch(`${config.baseUrl}/cards/${id}`, {
     method: "DELETE",
     headers: config.headers,
-  }).then(getPromiseResult)
-};
+  }).then(getPromiseResult);
 
-export const putLike = (id) => {
+export const putLike = (id) => 
   fetch(`${config.baseUrl}/cards/likes/${id}`, {
     method: "PUT",
     headers: config.headers,
   })
-    .then(getPromiseResult)
-};
+    .then(getPromiseResult);
 
-export const deleteLike = (id) => {
+export const deleteLike = (id) => 
   fetch(`${config.baseUrl}/cards/likes/${id}`, {
     method: "DELETE",
     headers: config.headers,
-  }).then(getPromiseResult)
-};
+  }).then(getPromiseResult);
 
-export const getInitialCards = () => {
-  return fetch(`${config.baseUrl}/cards`, {
+export const getInitialCards = () => 
+  fetch(`${config.baseUrl}/cards`, {
     headers: config.headers,
   }).then(getPromiseResult);
-};
 
 function getPromiseResult(res) {
   if (res.ok) {
