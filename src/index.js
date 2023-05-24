@@ -12,7 +12,7 @@ const popupEditAvatar = document.querySelector('#popup__edit_avatar');
 const formPopupEditAvatar = popupEditAvatar.querySelector('.edit-avatar');
 const popupEditAvatarLink = popupEditAvatar.querySelector('#edit-avatar__url');
 const buttonCloseAvatar = popupEditAvatar.querySelector("button.popup__close");
-const buttonEditAvatar = popupEditAvatar.querySelector('.edit-avatar__submit');
+const buttonEditAvatarSubmit = popupEditAvatar.querySelector('.edit-avatar__submit');
 const profileVecktor = profile.querySelector('.profile__vektor');
 
 const popupEditProfile = document.querySelector("#popup__edit_profile");
@@ -21,6 +21,7 @@ const buttonCloseEditProfile = popupEditProfile.querySelector("button.popup__clo
 const formEditProfile = popupEditProfile.querySelector(".edit-form");
 const popupEditProfileName = popupEditProfile.querySelector('.edit-form__input[name="name"]');
 const popupEditProfileAbout = popupEditProfile.querySelector('.edit-form__input[name="about"]');
+const buttonEditProfileSubmit = popupEditProfile.querySelector('.edit-form__submit');
 
 const popupNewPlace = document.querySelector("#popup__new_place");
 const buttonNewPlace = document.querySelector("#element__add");
@@ -28,6 +29,8 @@ const buttonCloseNewPlace = popupNewPlace.querySelector("button.popup__close");
 const formNewPlace = popupNewPlace.querySelector(".edit-new");
 const popupNewPlaceName = popupNewPlace.querySelector('.edit-new__input[name="name"]');
 const popupNewPlaceLink = popupNewPlace.querySelector('.edit-new__input[name="link"]');
+const buttonNewPlaceSubmit = popupNewPlace.querySelector('.edit-new__submit');
+
 
 const popupExpandPicture = document.querySelector("#popup__expand_picture");
 const buttonCloseExpandPicture = popupExpandPicture.querySelector("button.popup__close");
@@ -42,8 +45,7 @@ const validationConfig = {
   submitButtonSelector: 'button[type="submit"]',
   inactiveButtonClass: "form__submit_inactive",
   inputErrorClass: "form__input_type_error",
-  errorClass: "form__input-error_active",
-  // custValNames: ["edit-new__name","edit_profile__name-input"]
+  errorClass: "form__input-error_active"
 };
 
 enableValidation(validationConfig);
@@ -146,7 +148,7 @@ const cbDeleteCard = (el, card) => {
 
 const cbLike = (el, counter, likeButton) => {
   if (likeButton.classList.contains("element__like-button_status"))
-  unlike(el._id, counter, likeButton, setCount);
+    unlike(el._id, counter, likeButton, setCount);
   else 
     like(el._id, counter, likeButton, setCount);
 }
@@ -221,19 +223,19 @@ const forms = [
   {
     form: formEditProfile,
     popup: popupEditProfile,
-    button: buttonCloseEditProfile,
+    button: buttonEditProfileSubmit,
     submitAction: saveProfileData
   },
   {
     form: formNewPlace,
     popup: popupNewPlace,
-    button: buttonNewPlace,
+    button: buttonNewPlaceSubmit,
     submitAction: addCard
   },
   {
     form: formPopupEditAvatar,
     popup: popupEditAvatar,
-    button: buttonEditAvatar,
+    button: buttonEditAvatarSubmit,
     submitAction: saveAvatar 
   }
 ]
@@ -246,6 +248,8 @@ forms.forEach((el) => {
       el.submitAction();
       event.preventDefault();
       closePopup(el.popup);
+    } catch(err) {
+      console.log(err);
     } finally{
       el.button.textContent = buttonText;
     }
