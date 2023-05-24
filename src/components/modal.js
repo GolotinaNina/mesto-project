@@ -1,9 +1,7 @@
 export const closePopupByEsc = (evt) => {
     if (evt.key === "Escape") {
       const openedPopup  = document.querySelector('.popup_opened');
-      if (openedPopup  != null){
-        closePopup(openedPopup);
-      }
+      closePopup(openedPopup);
     }
 };
 
@@ -30,4 +28,3 @@ export function openPopup(el) {
   document.addEventListener('keydown',closePopupByEsc);
   el.classList.add("popup_opened");
 };
-
